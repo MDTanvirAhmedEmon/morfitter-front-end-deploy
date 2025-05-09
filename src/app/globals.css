@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Home page why join morfitter section */
+.join-card:hover .join-card-circle{
+    background-color: #0ba593;
+}
+
+.join-card:hover .join-card-circle-border{
+    border: 1px solid white; 
+}
+
+.join-card:hover .join-card-text{
+    color:  white; 
+}
+
+.circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: conic-gradient(
+      from 90deg,
+      #ff0000 0% 25%,
+      #ffff00 25% 50%,
+      #00ff00 50% 75%,
+      #0000ff 75% 100%
+    );
+  }
+  /* Trainer Item reviews */
+
+.right-part {
+    height: 40px;
+    width: 50px;
+    background-color: #399a8d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+
+.gm-ui-hover-effect {
+    display: none !important;
+  }
+  

@@ -1,0 +1,36 @@
+{
+  "name": "morfitter",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@paypal/react-paypal-js": "^8.8.2",
+    "@react-google-maps/api": "^2.20.6",
+    "@reduxjs/toolkit": "^2.5.0",
+    "antd": "^5.22.2",
+    "js-cookie": "^3.0.5",
+    "jwt-decode": "^4.0.0",
+    "next": "14.2.11",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-icons": "^5.3.0",
+    "react-quill": "^2.0.0",
+    "react-redux": "^9.2.0",
+    "react-share": "^5.1.1",
+    "recharts": "^2.15.0",
+    "redux-persist": "^6.0.0",
+    "sharp": "^0.33.5",
+    "socket.io-client": "^4.8.1"
+  },
+  "devDependencies": {
+    "eslint": "^8",
+    "eslint-config-next": "15.0.3",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1"
+  }
+}
