@@ -121,7 +121,7 @@ const SingleBlogForLogOut = ({ content }) => {
           <div className="btn-part flex gap-3 md:gap-12 items-center mt-6">
             <Link href={`/auth/login`}>
               <button
-                className={`btn-item like px-2 flex gap-2 justify-center items-center  w-40 h-11 rounded-lg bg-[#0ba59313] border text-greenColor border-greenColor ${content?.isLiked ? "shadow shadow-greenColor" : ""
+                className={`btn-item like px-4 md:px-2 flex gap-2 justify-center items-center  md:w-40 h-11 rounded-lg bg-[#0ba59313] border text-greenColor border-greenColor ${content?.isLiked ? "shadow shadow-greenColor" : ""
                   }  `}
               >
                 <svg
@@ -145,7 +145,7 @@ const SingleBlogForLogOut = ({ content }) => {
               </button>
             </Link>
             <Link href={`/auth/login`}>
-              <button className="btn-item comment px-2 flex gap-2 justify-center items-center shadow-md w-40 h-11 rounded-lg bg-red-50 border border-red-600 text-red-600">
+              <button className="btn-item comment px-4 md:px-2 flex gap-2 justify-center items-center shadow-md md:w-40 h-11 rounded-lg bg-red-50 border border-red-600 text-red-600">
                 <svg
                   width="26"
                   height="26"
@@ -161,13 +161,12 @@ const SingleBlogForLogOut = ({ content }) => {
                   />
                 </svg>
                 <span className=" hidden md:block">Comment </span>
-                <span className=" block md:hidden">Comment</span>
               </button>
             </Link>
             <Link href={`/auth/login`}>
               <button
                 onClick={showModal}
-                className="btn-item share flex px-2 gap-2 justify-center items-center shadow-md w-40 h-11 rounded-lg bg-[#572c5725] border border-secondary text-secondary"
+                className="btn-item share flex px-4 md:px-2 gap-2 justify-center items-center shadow-md md:w-40 h-11 rounded-lg bg-[#572c5725] border border-secondary text-secondary"
               >
                 <svg
                   width="23"
