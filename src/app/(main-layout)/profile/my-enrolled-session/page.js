@@ -9,6 +9,7 @@ import { Avatar } from "antd";
 
 const MyEnrolledSession = () => {
   const { data, isLoading } = useMyEnrolledSessionQuery();
+  console.log(data);
 
   return (
     <div>
@@ -21,7 +22,7 @@ const MyEnrolledSession = () => {
             {data?.data?.map((item) => (
               <Link
                 key={item?.session_id}
-                href={`/morfitter-sessions/single-session-of-pt/${item?.sessionDetails?._id}`}
+                href={`/morfitter-sessions/${item?.sessionDetails?.sessionType === "live_group" ? 'single-online-session' : 'single-session-of-pt'}/${item?.sessionDetails?._id}`}
               >
                 <div className="cursor-pointer h-[450px] shadow-[0px_10px_30px_rgba(0,0,0,0.1)] rounded-md relative">
                   <Image
@@ -81,9 +82,6 @@ const MyEnrolledSession = () => {
                             Free
                           </div>
                       }
-
-
-
                     </div>
                   </div>
                 </div>
