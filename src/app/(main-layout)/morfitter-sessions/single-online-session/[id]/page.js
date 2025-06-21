@@ -80,7 +80,6 @@ export default function JoinOnlineSessionPage() {
         }
     }
 
-
     const getSessionTypeLabel = (type) => {
         switch (type) {
             case "weekly":
@@ -106,7 +105,7 @@ export default function JoinOnlineSessionPage() {
                 return "bg-gray-100 text-gray-800"
         }
     }
-    console.log(new Date().toISOString());
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-primary/5 via-white to-primary/10">
             <div className="container mx-auto px-4 py-16">
