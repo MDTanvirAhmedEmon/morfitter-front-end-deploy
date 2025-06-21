@@ -11,33 +11,68 @@ import {
     FaCopy,
     FaCheck,
     FaInfoCircle,
+    FaRedoAlt,
 } from "react-icons/fa"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useParams, useSearchParams } from "next/navigation";
+import { useCheckEnrollmentMutation, useGetSingleSessionQuery } from "@/redux/features/session/sessionApi";
+import { useSelector } from "react-redux";
 
 export default function JoinOnlineSessionPage() {
     const [copied, setCopied] = useState(false)
+    const { role } = useSelector((state) => state.auth);
+    const { id } = useParams();
+    const searchParams = useSearchParams();
+    const host = searchParams.get('host');
 
-    const sessionData = {
-        title: "Product Strategy Workshop",
-        description: "Join us for an interactive workshop on product strategy and roadmap planning for Q2 2024.",
-        date: "March 15, 2024",
-        time: "2:00 PM",
-        duration: "2 hours",
-        host: "Sarah Johnson",
-        participants: 24,
-        maxParticipants: 50,
-        meetingId: "123 456 789",
-        passcode: "workshop2024",
-        zoomLink: "https://zoom.us/j/123456789?pwd=workshop2024",
-    }
+    const [checkEnrollment] = useCheckEnrollmentMutation();
+    useEffect(() => {
+        if (id && role?.id) {
+            checkEnrollment({ session_id: id, user_id: role.id }).unwrap()
+                .then((data) => {
+                    !data?.data?.enrolled &&
+                        router.push(`/`)
+                })
+        }
+    }, [id, role?.id, checkEnrollment]);
+
+
+
+    const { data, isLoading } = useGetSingleSessionQuery(id);
 
     const handleJoinSession = () => {
-        window.open(sessionData.zoomLink, "_blank")
+        window.open(data?.data?.zoomLink, "_blank")
     }
+
+    function formatSessionDate(iso) {
+        if (!iso || isNaN(new Date(iso))) {
+            return { formattedDate: "", formattedTime: "" }; // return empty if invalid date
+        }
+
+        const dateObj = new Date(iso);
+        const formattedDate = new Intl.DateTimeFormat('en-US', {
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric'
+        }).format(dateObj);
+
+        const formattedTime = new Intl.DateTimeFormat('en-US', {
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true
+        }).format(dateObj);
+
+        return { formattedDate, formattedTime };
+    }
+    const { formattedDate, formattedTime } = !isLoading && formatSessionDate(data?.data?.startTime);
+
+    const sessionStartPlus30Min = new Date(new Date(data?.data?.startTime).getTime() + 30 * 60 * 1000);
+    const sessionStartMinus30Min = new Date(new Date(data?.data?.startTime).getTime() - 30 * 60 * 1000);
+
 
     const copyMeetingId = async () => {
         try {
-            await navigator.clipboard.writeText(sessionData.meetingId)
+            await navigator.clipboard.writeText(data?.data?.meetingId)
             setCopied(true)
             setTimeout(() => setCopied(false), 2000)
         } catch (err) {
@@ -45,6 +80,33 @@ export default function JoinOnlineSessionPage() {
         }
     }
 
+
+    const getSessionTypeLabel = (type) => {
+        switch (type) {
+            case "weekly":
+                return "Weekly Session"
+            case "fortnightly":
+                return "Fortnightly Session"
+            case "monthly":
+                return "Monthly Session"
+            default:
+                return "Session"
+        }
+    }
+
+    const getSessionTypeColor = (type) => {
+        switch (type) {
+            case "weekly":
+                return "bg-green-100 text-green-800"
+            case "fortnightly":
+                return "bg-blue-100 text-blue-800"
+            case "monthly":
+                return "bg-purple-100 text-purple-800"
+            default:
+                return "bg-gray-100 text-gray-800"
+        }
+    }
+    console.log(new Date().toISOString());
     return (
         <div className="min-h-screen bg-gradient-to-br from-primary/5 via-white to-primary/10">
             <div className="container mx-auto px-4 py-16">
@@ -59,9 +121,21 @@ export default function JoinOnlineSessionPage() {
 
                     <div className="bg-white rounded-2xl shadow-xl border-0 mb-8">
                         <div className="p-8">
+                            {/* <div className="mb-6">
+                                <h2 className="text-2xl font-bold text-gray-900 mb-2">{data?.data?.title}</h2>
+                                <p className="text-gray-600 leading-relaxed">{data?.data?.description}</p>
+                            </div> */}
                             <div className="mb-6">
-                                <h2 className="text-2xl font-bold text-gray-900 mb-2">{sessionData.title}</h2>
-                                <p className="text-gray-600 leading-relaxed">{sessionData.description}</p>
+                                <div className="flex items-center justify-between mb-3">
+                                    <h2 className="text-2xl font-bold text-gray-900">{data?.data?.title}</h2>
+                                    <span
+                                        className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getSessionTypeColor(data?.data?.frequency)}`}
+                                    >
+                                        <FaRedoAlt className="w-3 h-3 mr-1" />
+                                        {getSessionTypeLabel(data?.data?.frequency)}
+                                    </span>
+                                </div>
+                                <p className="text-gray-600 leading-relaxed">{data?.data?.description}</p>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -72,8 +146,8 @@ export default function JoinOnlineSessionPage() {
                                     <div>
                                         <h3 className="font-semibold text-gray-900 mb-1">Date & Time</h3>
                                         <div className=" flex items-center gap-1">
-                                            <p className="text-gray-600 text-sm">{sessionData.date},</p>
-                                            <p className="text-gray-600 text-sm">{sessionData.time}</p>
+                                            <p className="text-gray-600 text-sm">{formattedDate},</p>
+                                            <p className="text-gray-600 text-sm">{formattedTime}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -84,7 +158,7 @@ export default function JoinOnlineSessionPage() {
                                     </div>
                                     <div>
                                         <h3 className="font-semibold text-gray-900 mb-1">Duration</h3>
-                                        <p className="text-gray-600 text-sm">{sessionData.duration}</p>
+                                        <p className="text-gray-600 text-sm">{data?.data?.druration}</p>
                                     </div>
                                 </div>
 
@@ -94,7 +168,7 @@ export default function JoinOnlineSessionPage() {
                                     </div>
                                     <div>
                                         <h3 className="font-semibold text-gray-900 mb-1">Host</h3>
-                                        <p className="text-gray-600 text-sm">{sessionData.host}</p>
+                                        <p className="text-gray-600 text-sm capitalize">{host}</p>
                                     </div>
                                 </div>
 
@@ -105,10 +179,17 @@ export default function JoinOnlineSessionPage() {
                                     <div>
                                         <h3 className="font-semibold text-gray-900 mb-1">Participants</h3>
                                         <div className="flex items-center space-x-2">
+                                            {
+                                                new Date() < sessionStartMinus30Min || new Date() > sessionStartPlus30Min ?
+                                                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                                        Unavailable
+                                                    </span>
+                                                    :
+                                                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                        Available
+                                                    </span>
+                                            }
 
-                                            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                                Available
-                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -123,7 +204,7 @@ export default function JoinOnlineSessionPage() {
                                     <div className="flex items-center justify-between">
                                         <span className="text-sm text-gray-600">Meeting ID:</span>
                                         <div className="flex items-center space-x-2">
-                                            <code className="bg-white px-2 py-1 rounded text-sm font-mono">{sessionData.meetingId}</code>
+                                            <code className="bg-white px-2 py-1 rounded text-sm font-mono">{data?.data?.meetingId}</code>
                                             <button
                                                 onClick={copyMeetingId}
                                                 className="p-1 hover:bg-gray-200 rounded transition-colors duration-200"
@@ -139,7 +220,7 @@ export default function JoinOnlineSessionPage() {
                                     </div>
                                     <div className="flex items-center justify-between">
                                         <span className="text-sm text-gray-600">Passcode:</span>
-                                        <code className="bg-white px-2 py-1 rounded text-sm font-mono">{sessionData.passcode}</code>
+                                        <code className="bg-white px-2 py-1 rounded text-sm font-mono">{data?.data?.passcode}</code>
                                     </div>
                                 </div>
                             </div>
@@ -177,7 +258,7 @@ export default function JoinOnlineSessionPage() {
                         <p className="text-sm text-gray-500">
                             Need help? Contact support at{" "}
                             <a
-                                href="mailto:support@example.com"
+                                href="mailto:morfitter@gmail.com"
                                 className="text-primary hover:text-primary/80 transition-colors duration-200"
                             >
                                 morfitter@gmail.com

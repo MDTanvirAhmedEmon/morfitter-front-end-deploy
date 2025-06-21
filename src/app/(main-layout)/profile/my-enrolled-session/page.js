@@ -22,7 +22,7 @@ const MyEnrolledSession = () => {
             {data?.data?.map((item) => (
               <Link
                 key={item?.session_id}
-                href={`/morfitter-sessions/${item?.sessionDetails?.sessionType === "live_group" ? 'single-online-session' : 'single-session-of-pt'}/${item?.sessionDetails?._id}`}
+                href={`/morfitter-sessions/${item?.sessionDetails?.sessionType === "live_group" ? 'single-online-session' : 'single-session-of-pt'}/${item?.sessionDetails?._id}?host=${item?.owner?.name}`}
               >
                 <div className="cursor-pointer h-[450px] shadow-[0px_10px_30px_rgba(0,0,0,0.1)] rounded-md relative">
                   <Image
