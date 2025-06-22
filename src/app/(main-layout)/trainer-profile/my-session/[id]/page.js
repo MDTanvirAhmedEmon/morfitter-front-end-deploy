@@ -9,6 +9,7 @@ import { useState } from "react";
 import profileImage from "../../../../../assets/profile/profile_image.webp";
 import { CiEdit } from "react-icons/ci";
 import EditSessionModal from "@/components/TrainerProfile/EditSessionModal";
+import OnlineSessionContent from "@/components/TrainerProfile/OnlineSessionContent";
 
 const BASE_URL = "https://api.morfitter.com";
 
@@ -17,6 +18,7 @@ const SingleSession = () => {
 
     const router = useRouter();
     const { data } = useGetSingleSessionQuery(id);
+    console.log('session data', data);
     const session = data?.data;
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -112,43 +114,52 @@ const SingleSession = () => {
                 </div>
                 <EditSessionModal isEditModalOpen={isEditModalOpen} handleEditOk={handleEditOk} handleEditCancel={handleEditCancel} session={session}></EditSessionModal>
                 <AddSessionContentModal isModalOpen={isModalOpen} handleCancel={handleCancel} handleOk={handleOk} id={id}></AddSessionContentModal>
-                <div>
-                    <div className=" flex justify-between items-center mb-5">
-                        <h2 className="text-2xl font-semibold text-gray-900 mb-4">Recorded Content</h2>
-                        <button className=" bg-secondary text-white px-4 py-2 rounded-md" onClick={showModal}>Add Content</button>
-                    </div>
+
+                {
+                    session?.sessionType === "recorded" ?
+                        <div>
+                            <div className=" flex justify-between items-center mb-5">
+                                <h2 className="text-2xl font-semibold text-gray-900 mb-4">Recorded Content</h2>
+                                <button className=" bg-secondary text-white px-4 py-2 rounded-md" onClick={showModal}>Add Content</button>
+                            </div>
 
 
-                    {session?.recordedContent.length > 0 && (
-                        <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6">
-                            {session.recordedContent.map((content, index) => (
-                                <div key={content._id} className="border py-4 px-3 rounded-lg shadow-md bg-gray-50">
-                                    <div className=" flex justify-between items-center">
-                                        <div>
-                                            <h3 className="text-lg font-semibold text-teal-600">{index + 1}. {content.title}</h3>
-                                            <p className="text-gray-600">⏳ Duration: {content.duration}</p>
+                            {session?.recordedContent.length > 0 && (
+                                <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6">
+                                    {session.recordedContent.map((content, index) => (
+                                        <div key={content._id} className="border py-4 px-3 rounded-lg shadow-md bg-gray-50">
+                                            <div className=" flex justify-between items-center">
+                                                <div>
+                                                    <h3 className="text-lg font-semibold text-teal-600">{index + 1}. {content.title}</h3>
+                                                    <p className="text-gray-600">⏳ Duration: {content.duration}</p>
+                                                </div>
+                                                <Popconfirm
+                                                    title="Delete the video"
+                                                    description="Are you sure to delete this video?"
+                                                    onConfirm={() => confirm(content)}
+                                                    okText="Yes"
+                                                    cancelText="No"
+                                                >
+                                                    <button className=" bg-red-600 px-2 py-1 text-white rounded">Delete</button>
+                                                </Popconfirm>
+
+                                            </div>
+
+
+                                            <video controls className="w-full mt-3 rounded-lg" src={`${BASE_URL}${content.url}`}>
+                                                Your browser does not support the video tag.
+                                            </video>
                                         </div>
-                                        <Popconfirm
-                                            title="Delete the video"
-                                            description="Are you sure to delete this video?"
-                                            onConfirm={() => confirm(content)}
-                                            okText="Yes"
-                                            cancelText="No"
-                                        >
-                                            <button className=" bg-red-600 px-2 py-1 text-white rounded">Delete</button>
-                                        </Popconfirm>
-
-                                    </div>
-
-
-                                    <video controls className="w-full mt-3 rounded-lg" src={`${BASE_URL}${content.url}`}>
-                                        Your browser does not support the video tag.
-                                    </video>
+                                    ))}
                                 </div>
-                            ))}
+                            )}
                         </div>
-                    )}
-                </div>
+                        :
+                        <div>
+                            <OnlineSessionContent sessionInfo={session}></OnlineSessionContent>
+                        </div>
+                }
+
                 <div className=" bg-gray-50 py-10 ">
                     <h1 className="text-3xl font-semibold text-gray-800 mb-6 text-center">
                         Enrolled Users
