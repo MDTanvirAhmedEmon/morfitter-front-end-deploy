@@ -1,9 +1,10 @@
 "use client"
 
-import { Form, Input, DatePicker, Button, Card, Space } from "antd"
+import { Form, Input, DatePicker, Button, Card, Space, message } from "antd"
 import { useEffect } from "react"
 import { HiLink, HiHashtag, HiLockClosed, HiClock, HiCalendar } from "react-icons/hi2"
 import dayjs from "dayjs"
+import { useUpdateSessionMutation } from "@/redux/features/session/sessionApi"
 
 const OnlineSessionContent = ({ sessionInfo }) => {
     const [form] = Form.useForm()
@@ -20,8 +21,21 @@ const OnlineSessionContent = ({ sessionInfo }) => {
         }
     }, [sessionInfo, form])
 
+    const [updateSession, { isLoading }] = useUpdateSessionMutation();
+
     const onFinish = (values) => {
         console.log("Form values:", values)
+
+        const formData = new FormData();
+        formData.append("data", JSON.stringify(values));
+        updateSession({ id: sessionInfo?._id, formData })
+            .unwrap()
+            .then(() => {
+                message.success(`Session updated Successfully`);
+            })
+            .catch((error) => {
+                message.error(error?.data?.message);
+            });
     }
 
     return (
@@ -105,6 +119,8 @@ const OnlineSessionContent = ({ sessionInfo }) => {
                                 <Button
                                     type="primary"
                                     htmlType="submit"
+                                    disabled={isLoading}
+                                    loading={isLoading}
                                     size="large"
                                     className="min-w-[120px] rounded-lg bg-primary hover:bg-primary/90"
                                 >

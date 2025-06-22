@@ -99,16 +99,35 @@ const SingleSession = () => {
                     )}
                 </div>
 
-                <div className="border px-3 py-6 rounded-lg shadow-md bg-gray-100">
-                    <h1 className="text-3xl font-bold text-gray-900">{session?.title}</h1>
-                    <div className="grid md:grid-cols-2 gap-4 mt-4 text-gray-700">
-                        <p><strong>Session Type:</strong> {session?.sessionType}</p>
-                        <p><strong>Fitness Focus:</strong> {session?.fitnessFocus}</p>
-                        <p><strong>Access Type:</strong> {session?.accessType}</p>
-                        <p><strong>Frequency:</strong> {session?.frequency}</p>
-                        <p><strong>Membership Fee:</strong> ${session?.membership_fee}</p>
+                <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg">
+                    <h1 className="text-4xl font-semibold text-gray-900 mb-6">{session?.title}</h1>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-600">
+                        <div>
+                            <span className="block text-sm font-medium text-gray-500">Session Type</span>
+                            <p className="text-lg font-semibold">{session?.sessionType}</p>
+                        </div>
+                        <div>
+                            <span className="block text-sm font-medium text-gray-500">Fitness Focus</span>
+                            <p className="text-lg font-semibold">{session?.fitnessFocus}</p>
+                        </div>
+                        <div>
+                            <span className="block text-sm font-medium text-gray-500">Access Type</span>
+                            <p className="text-lg font-semibold">{session?.accessType}</p>
+                        </div>
+                        <div>
+                            <span className="block text-sm font-medium text-gray-500">Frequency</span>
+                            <p className="text-lg font-semibold">{session?.frequency}</p>
+                        </div>
+                        <div>
+                            <span className="block text-sm font-medium text-gray-500">Membership Fee</span>
+                            <p className="text-lg font-semibold">${session?.membership_fee ? session?.membership_fee : 0}</p>
+                        </div>
                     </div>
                 </div>
+
+
+
                 <div>
                     <CiEdit onClick={showEditModal} className=" w-8 h-8 cursor-pointer" />
                 </div>
