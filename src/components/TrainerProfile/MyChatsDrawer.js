@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 // import { useGetChatActorQuery } from "@/redux/features/chat/chatActor";
-import { Avatar, Drawer, Input, Button, ConfigProvider } from "antd";
+import { Avatar, Drawer } from "antd";
 import { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useGetUserIChatsWithQuery } from "@/redux/features/chats/chatsApi";
@@ -10,6 +10,7 @@ import ChatContainer from "./ChatContainer";
 
 const MyChatsDrawer = ({ onClose, open }) => {
     const { user, role } = useSelector((state) => state.auth);
+    console.log('user', user);
     const [selectedUser, setSelectedUser] = useState(null);
     const [messages, setMessages] = useState([]);
     const messageEndRef = useRef(null);
@@ -18,6 +19,8 @@ const MyChatsDrawer = ({ onClose, open }) => {
         refetchOnMountOrArgChange: true,
         refetchOnFocus: true
     });
+
+    console.log('user list form db', data);
 
     // const { data } = useGetChatActorQuery(profileId)
     // console.log('Raw data', data)
@@ -34,7 +37,7 @@ const MyChatsDrawer = ({ onClose, open }) => {
 
     return (
         <Drawer title="Live Chats" onClose={onClose} open={open} width={400}>
-  
+
             {!selectedUser ? (
                 <div className="w-full">
                     {data?.data?.map((user) => (
@@ -66,7 +69,7 @@ const MyChatsDrawer = ({ onClose, open }) => {
                 </div>
             ) : (
                 <ChatContainer selectedUser={selectedUser} setSelectedUser={setSelectedUser} messageEndRef={messageEndRef} />
-            )} 
+            )}
         </Drawer>
 
     );

@@ -6,8 +6,9 @@ import { useSelector } from 'react-redux';
 import io from 'socket.io-client';
 
 const FindTrainersChats = ({ onClose, open, receiverId }) => {
-    const socket = io('http://localhost:5000/live-chats');
+    const [socket, setSocket] = useState(null)
     const { user, role } = useSelector((state) => state.auth)
+    console.log('user', user);
     const { data: messageFromDB } = useGetMessageWithOthersQuery({ sender: user?._id, receiver: receiverId });
     const [message, setMessage] = useState([]);
     console.log('form state', message);
@@ -19,19 +20,25 @@ const FindTrainersChats = ({ onClose, open, receiverId }) => {
         }
     }, [messageFromDB]);
 
+    // Setup socket connection
     useEffect(() => {
-        socket.on(`received${user?._id}`, (data) => {
+        const newSocket = io('http://localhost:5000/live-chats');
+        setSocket(newSocket)
+
+
+        newSocket.on(`received${user?._id}`, (data) => {
             console.log('from socket', data);
             setMessage((prevsetMessage) => [...prevsetMessage, data]);
         });
-        // return () => {
-        //     socket.disconnect();
-        // }
-    }, [user?._id, socket]);
+
+        return () => {
+            newSocket.disconnect()
+        }
+    }, [])
 
     const sendMessage = () => {
         console.log(messageInput);
-        if (receiverId && message) {
+        if (receiverId && message && user?._id) {
             socket.emit('sendUser', {
                 sender: user?._id,
                 receiver: receiverId,
@@ -40,6 +47,7 @@ const FindTrainersChats = ({ onClose, open, receiverId }) => {
         }
         setMessageInput('')
     };
+
 
     return (
         <Drawer

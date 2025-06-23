@@ -1,23 +1,24 @@
 "use client";
 import { useGetMessageWithOthersQuery } from '@/redux/features/chats/chatsApi';
-import { chatsUrl } from '@/utils/Url';
-import { Avatar, ConfigProvider, Drawer, Input } from 'antd';
+import { Avatar, ConfigProvider, Input } from 'antd';
 import { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import io from 'socket.io-client';
 import ChatsSkeleton from '../Skeleton/ChatsSkeleton';
 
 export default function ChatContainer({ selectedUser, setSelectedUser }) {
-    const socket = io(chatsUrl);
+    console.log('selectedUser', selectedUser);
+    const [socket, setSocket] = useState(null)
     const { user, role } = useSelector((state) => state.auth);
-    const { data: messageFromDB, isLoading } = useGetMessageWithOthersQuery({ sender: user?._id, receiver: selectedUser?.traineeTrainerId });
+    console.log('user from redux', user);
+    const { data: messageFromDB, isLoading } = useGetMessageWithOthersQuery({ sender: user?._id, receiver: selectedUser?.traineeTrainerId }, {
+        refetchOnMountOrArgChange: true,});
     console.log(messageFromDB);
     const [message, setMessage] = useState([]);
     const [messageInput, setMessageInput] = useState('');
     const chatContainerRef = useRef(null);
     const messageEndRef = useRef(null); // Dummy div for auto scroll
     const [showScrollButton, setShowScrollButton] = useState(false);
-
 
     useEffect(() => {
         if (messageFromDB) {
@@ -26,14 +27,20 @@ export default function ChatContainer({ selectedUser, setSelectedUser }) {
         scrollToBottom();
     }, [messageFromDB]);
 
-
     useEffect(() => {
-        socket.on(`received${user?._id}`, (data) => {
+        const newSocket = io('http://localhost:5000/live-chats');
+        setSocket(newSocket)
+
+        newSocket.on(`received${user?._id}`, (data) => {
             console.log('from socket', data);
-            setMessage((prevMessages) => [...prevMessages, data]);
+            setMessage((prevsetMessage) => [...prevsetMessage, data]);
             scrollToBottom();
         });
-    }, [user?._id, socket]);
+
+        return () => {
+            newSocket.disconnect()
+        }
+    }, [])
 
     const sendMessage = () => {
         if (selectedUser?.traineeTrainerId && messageInput) {
@@ -42,8 +49,7 @@ export default function ChatContainer({ selectedUser, setSelectedUser }) {
                 receiver: selectedUser?.traineeTrainerId,
                 message: messageInput
             });
-            setMessage((prevMessages) => [...prevMessages, { sender: user?._id, message: messageInput }]);
-            setMessageInput('');
+            setMessageInput('')
             scrollToBottom();
         }
     };
