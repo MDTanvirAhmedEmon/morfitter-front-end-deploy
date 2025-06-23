@@ -22,6 +22,7 @@ const EditSessionModal = ({
             form.setFieldsValue({
                 fitnessFocus: session?.fitnessFocus || "",
                 title: session?.title || "",
+                description: session?.description || "",
                 access: session?.accessType || "",
                 price: session?.price || "",
                 trainingType: session?.sessionType || "",
@@ -43,7 +44,7 @@ const EditSessionModal = ({
         const sessionData = {
             sessionType: values.trainingType,
             title: values.title,
-            // sessionMode: values.,
+            description: values.description,
             fitnessFocus: values.focus,
             accessType: values.access,
             membership_fee: Number(values.price || 0),
@@ -125,6 +126,14 @@ const EditSessionModal = ({
                         rules={[{ required: true, message: "Please input content title!" }]}
                     >
                         <Input placeholder="Content title" className="w-full text-lg" />
+                    </Form.Item>
+                </div>
+                <div>
+                    <Form.Item
+                        name="description"
+                        rules={[{ required: true, message: "Please input description!" }]}
+                    >
+                        <Input.TextArea placeholder="description" className="w-full text-lg" rows={4} />
                     </Form.Item>
                 </div>
 

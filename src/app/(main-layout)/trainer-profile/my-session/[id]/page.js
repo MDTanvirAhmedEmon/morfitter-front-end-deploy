@@ -100,7 +100,8 @@ const SingleSession = () => {
                 </div>
 
                 <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg">
-                    <h1 className="text-4xl font-semibold text-gray-900 mb-6">{session?.title}</h1>
+                    <h1 className="text-4xl font-semibold text-gray-900 mb-2">{session?.title}</h1>
+                    <p className="mb-6">{session?.description}</p>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-600">
                         <div>

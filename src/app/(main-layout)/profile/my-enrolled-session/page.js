@@ -14,7 +14,10 @@ const MyEnrolledSession = () => {
   return (
     <div>
       <div className="px-3 xxl:w-[1340px] xxl:mx-auto py-10 md:py-12">
-        <h1 className=" text-2xl font-semibold pb-6">My Enrolled Sessions</h1>
+        <h1 className="text-3xl font-extrabold text-gray-800 pb-4">
+          My Enrolled Sessions
+        </h1>
+
         {isLoading ? (
           <SessionSkeleton />
         ) : data?.data?.length ? (
