@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "@/redux/features/auth/authSlice";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+import { MdPayment } from "react-icons/md";
 // import { clearRegisterInfo } from "@/redux/features/auth/registerSlice";
 
 const { Sider } = Layout;
@@ -91,19 +92,24 @@ const Sidebar = ({ collapsed }) => {
                 icon: <PiUsersLight className=" w-5 h-5" />,
                 label: <Link href={`/user-management`}>User Management</Link>,
               },
-
               {
                 key: "6",
-                icon: <SettingOutlined className="w-5 h-5" />,
+                icon: <MdPayment className=" w-5 h-5" />,
+                label: <Link href={`/payment`}>Payment Management</Link>,
+              },
+
+              {
+                key: "7",
+                icon: <SettingOutlined className="w-5 h-5 ml-0.5" />,
 
                 label: <p>Settings</p>,
                 children: [
                   {
-                    key: "6-1",
+                    key: "8-1",
                     label: <Link href={`/settings/profile`}>Profile</Link>,
                   },
                   {
-                    key: "6-2",
+                    key: "8-2",
                     label: (
                       <Link href={`/settings/privacy-policy`}>
                         Privacy Policy
@@ -111,7 +117,7 @@ const Sidebar = ({ collapsed }) => {
                     ),
                   },
                   {
-                    key: "6-3",
+                    key: "8-3",
                     label: (
                       <Link href={`/settings/terms-condition`}>
                         Terms & Condition
