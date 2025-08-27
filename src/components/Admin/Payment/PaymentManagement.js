@@ -3,7 +3,7 @@ import {
     useGetallUserManagementQuery,
     useUpdateUserMutation,
 } from "@/redux/features/admin/userManagement/userManagementApi";
-import { Avatar, message, Pagination, Popconfirm, Spin, Table } from "antd";
+import { Avatar, message, Pagination, Spin, Table } from "antd";
 import { useState } from "react";
 
 const PaymentManagement = ({ searchQuery }) => {
@@ -69,12 +69,12 @@ const PaymentManagement = ({ searchQuery }) => {
             render: (_, record) => record?.contactNo,
         },
         {
-            title: "Seller",
+            title: "Trainer Name",
             dataIndex: "contactNo",
-            render: (_, record) => <p>Seller Name</p>,
+            render: (_, record) => <p>Trainer Name</p>,
         },
         {
-            title: "Seller Amount",
+            title: "Trainer Amount",
             dataIndex: "contactNo",
             render: (_, record) => <p>£90</p>,
         },
@@ -89,38 +89,13 @@ const PaymentManagement = ({ searchQuery }) => {
             key: "status",
             render: (_, record) => (
                 <button
-                    className={`cursor-default px-2 py-1 rounded-md ${record?.userData?.status === "in-progress"
+                    className={`cursor-default px-2 py-1 rounded-md ${record?.userData?.status === "paid"
                         ? "bg-green-500 text-white"
-                        : "bg-yellow-500 text-black"
+                        : "bg-gray-400 text-white"
                         }`}
                 >
                     {record?.userData?.status || "N/A"}
                 </button>
-            ),
-        },
-        {
-            title: "Action",
-            key: "action",
-            render: (_, record) => (
-                <Popconfirm
-                    title={`${record?.userData?.status === "blocked" ? "Unblock" : "Ban"
-                        }  This User`}
-                    description={`Are you sure you want to ${record?.userData?.status === "blocked" ? "unblock" : "ban"
-                        } this user? `}
-                    onConfirm={() => confirm(record?.userData?._id)}
-                    okText="Yes"
-                    cancelText="No"
-                >
-                    {record?.userData?.status === "blocked" ? (
-                        <button className="bg-green-500 text-white px-2 py-1 rounded-md hover:bg-green-600">
-                            unblock
-                        </button>
-                    ) : (
-                        <button className="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600">
-                            Ban
-                        </button>
-                    )}
-                </Popconfirm>
             ),
         },
     ];
