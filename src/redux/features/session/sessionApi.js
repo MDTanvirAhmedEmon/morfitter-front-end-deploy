@@ -65,7 +65,7 @@ const sessionApi = baseApi.injectEndpoints({
     }),
 
     updateSession: builder.mutation({
-      query: ({id,formData}) => ({
+      query: ({ id, formData }) => ({
         url: `/session/update/${id}`,
         method: "PATCH",
         body: formData,
@@ -121,6 +121,28 @@ const sessionApi = baseApi.injectEndpoints({
         body: data,
       }),
     }),
+    // ============================ Stripe ===========================
+    checkedStripeConnection: builder.query({
+      query: (params) => ({
+        url: `/payment/check-stripe-connected-or-not`,
+        method: "GET",
+        params,
+      }),
+    }),
+
+    generateOAuth: builder.mutation({
+      query: (data) => ({
+        url: `/payment/generate-oauth/?trainerId=${data?.trainerId}&email=${data?.email}`,
+        method: "POST",
+      }),
+    }),
+    onboardingComplete: builder.query({
+      query: (params) => ({
+        url: `/payment/onboarding-complete`,
+        method: "GET",
+        params,
+      }),
+    }),
 
   }),
 });
@@ -141,6 +163,9 @@ export const {
   useGetTotalEntrolledUserSessionQuery,
   useMarkVideoMutation,
   useGiveSessionReviewMutation,
+  useCheckedStripeConnectionQuery,
+  useGenerateOAuthMutation,
+  useOnboardingCompleteQuery,
 } = sessionApi;
 
 export default sessionApi;

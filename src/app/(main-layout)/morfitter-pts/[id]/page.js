@@ -8,7 +8,7 @@ import EnrollModal from '@/components/Sessions/EnrollModal';
 import { useParams } from 'next/navigation';
 import { useGetSingleTrainerSessionQuery } from '@/redux/features/trainer/trainerApi';
 import { FaStar } from 'react-icons/fa';
-import profileImage from '../../../../assets/profile/profile_image.webp'
+// import profileImage from '../../../../assets/profile/profile_image.webp'
 
 const SinglePtSession = () => {
     const { id } = useParams();

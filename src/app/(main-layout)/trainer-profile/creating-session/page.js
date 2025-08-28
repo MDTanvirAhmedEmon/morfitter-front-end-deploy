@@ -4,15 +4,27 @@ import regiserImg from "../../../../assets/session.jpg";
 import Image from "next/image";
 import { useState } from "react";
 // import TextArea from "antd/es/input/TextArea";
-import { useCreateSessionMutation } from "@/redux/features/session/sessionApi";
+import { useCheckedStripeConnectionQuery, useCreateSessionMutation } from "@/redux/features/session/sessionApi";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { useGetMySpecialismQuery } from "@/redux/features/specialism/specialismApi";
 import TextArea from "antd/es/input/TextArea";
+import ConnectStripeModal from "@/components/TrainerProfile/ConnectStripeModal";
 // import { LuUpload } from "react-icons/lu";
 
 const CreatingSession = () => {
   const { user } = useSelector((state) => state.auth);
+  const { data, isLoading: stripeConnectionLoading } = useCheckedStripeConnectionQuery({ trainerId: user?._id });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   const { data: specialism } = useGetMySpecialismQuery(user?._id);
 
   const capitalizeWords = (str) =>
@@ -37,7 +49,6 @@ const CreatingSession = () => {
 
   const onFinish = (values) => {
     const formData = new FormData();
-    console.log("Success:", values);
     const sessionData = {
       sessionType: values.trainingType,
       title: values.title,
@@ -81,6 +92,12 @@ const CreatingSession = () => {
   //   { name: "Others" },
   // ];
 
+  const onAccessTypeChange = (value) => {
+    setAccessType(value);
+    if (value === "membership" && !data?.connection) {
+      showModal(); // Show the modal when Membership is selected
+    }
+  };
   return (
     <section className="py-8 md:py-12">
       <div className=" px-4 xxl:px-0 xxl:w-[1340px] mx-auto text-2xl md:text-3xl font-semibold mb-4">Create A New Session</div>
@@ -216,19 +233,17 @@ const CreatingSession = () => {
                 </button>
               </div>
             </div>
-
-            {/* <Form.Item
-                            name="startDate"
-                            className=""
-                            rules={[{ required: true, message: "Please select start date!" }]}
-                        >
-                            <div className=" flex items-center gap-3">
-                                <p className=" text-lg w-[16%]">Start Date</p>
-                                <DatePicker className=" w-full" onChange={onChange} />
-                            </div>
-
-                        </Form.Item> */}
-
+            <ConnectStripeModal isModalOpen={isModalOpen} handleCancel={handleCancel} handleOk={handleOk} trainerId={user?._id}></ConnectStripeModal>
+          {/* <Form.Item
+                name="startDate"
+                className=""
+                rules={[{ required: true, message: "Please select start date!" }]}
+                >
+                <div className=" flex items-center gap-3">
+                <p className=" text-lg w-[16%]">Start Date</p>
+                <DatePicker className=" w-full" onChange={onChange} />
+                </div>
+          </Form.Item> */}
             <Form.Item
               name="access"
               className=""
@@ -239,6 +254,7 @@ const CreatingSession = () => {
                 <Select
                   onChange={(value) => {
                     setAccessType(value);
+                    onAccessTypeChange(value)
                     form.setFieldsValue({ access: value });
                   }}
                   placeholder={<p className=" text-lg">Access</p>}
@@ -286,7 +302,7 @@ const CreatingSession = () => {
             <div className=" flex justify-end items-center">
               {/* <Link href={`/trainer-profile`}> */}
               <button
-                disabled={isLoading}
+                disabled={isLoading || stripeConnectionLoading}
                 type="submit"
                 className=" mt-8 md:mt-5 md:text-lg leading-8 text-white font-bold bg-secondary hover:bg-greenColor md:py-2 px-6 md:px-8 rounded-full capitalize transition-all :"
               >
