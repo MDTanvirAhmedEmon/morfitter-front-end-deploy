@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { IoSearchOutline } from 'react-icons/io5';
 import SessionSkeleton from '@/components/Skeleton/SessionSkeleton';
 import EnrollModal from '@/components/Sessions/EnrollModal';
-import profileImage from "../../../assets/profile/profile_image.webp"
+// import profileImage from "../../../assets/profile/profile_image.webp"
 import { FaStar } from 'react-icons/fa';
 
 
@@ -152,9 +152,6 @@ const MorfitterSessions = () => {
                                                         Free
                                                     </div>
                                             }
-
-
-
                                         </div>
                                     </div>
                                 </div>
@@ -168,7 +165,6 @@ const MorfitterSessions = () => {
                         </div>
                     )
                 }
-
 
                 <div className=" mt-10">
                     {

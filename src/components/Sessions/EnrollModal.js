@@ -25,7 +25,7 @@ const EnrollModal = ({ isModalOpen, handleCancel, handleOk, session }) => {
       checkEnrollment({ session_id: session._id, user_id: role.id });
     }
   }, [checkEnrollment, role?.id, session]);
-
+  
   const handleFreeEnroll = () => {
     const enrollData = {
       session_id: session?._id,
@@ -101,7 +101,7 @@ const EnrollModal = ({ isModalOpen, handleCancel, handleOk, session }) => {
         ))}
       {/* for paid session. here membership means paid session */}
       {session?.accessType === "membership" && (
-        <MakePayment session={session}></MakePayment>
+        <MakePayment session={session} role={role}></MakePayment>
       )}
     </Modal>
   );

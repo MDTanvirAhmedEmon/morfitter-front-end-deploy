@@ -1,22 +1,26 @@
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { useEnrollSessionMutation } from "@/redux/features/session/sessionApi";
+import { message } from "antd";
 
-const MakePayment = ({ session }) => {
-    const createOrder = async () => {
-        const response = await fetch("/api/paypal/create-payment", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ trainerPaypalEmail, sessionPrice }),
-        });
-        const data = await response.json();
-        return data.approvalUrl; // Return approval URL to redirect user to PayPal
-    };
+const MakePayment = ({ session, role }) => {
 
-    const onApprove = async (data) => {
-        // After approval, capture payment and transfer 90% to the trainer
-        await fetch(`/api/paypal/execute-payment?paymentId=${data.paymentID}&PayerID=${data.payerID}&trainerPaypalEmail=${trainerPaypalEmail}&sessionPrice=${sessionPrice}`, {
-            method: "POST",
-        });
-        alert("Payment successful!");
+    const [enrollSession, { isLoading }] = useEnrollSessionMutation();
+
+    const handleFreeEnroll = () => {
+        const enrollData = {
+            session_id: session?._id,
+            user_id: role?.id,
+            purchaseDate: new Date().toISOString(),
+            paymentStatus: "paid",
+        };
+        enrollSession(enrollData)
+            .unwrap()
+            .then((data) => {
+                console.log(data);
+                window.location.href = data?.data?.url;
+            })
+            .catch((error) => {
+                message.error(error?.data?.message);
+            });
     };
 
     return (
@@ -51,12 +55,9 @@ const MakePayment = ({ session }) => {
                 </h2>
             </div>
 
-            <button className="mt-6 w-full py-3 rounded-lg bg-gradient-to-r from-[#FF7F50] to-[#28A745] text-white font-semibold text-lg shadow-md hover:scale-105 transition-all flex items-center justify-center gap-2">
-                Proceed to Payment 💳
+            <button onClick={handleFreeEnroll} disabled={isLoading} className="mt-6 w-full py-3 rounded-lg bg-gradient-to-r from-[#FF7F50] to-[#28A745] text-white font-semibold text-lg shadow-md hover:scale-105 transition-all flex items-center justify-center gap-2">
+                {isLoading ? "Processing..." : "Proceed to Payment 💳"}
             </button>
-            <PayPalScriptProvider options={{ "client-id": process.env.PAYPAL_CLIENT_ID }}>
-                <PayPalButtons createOrder={createOrder} onApprove={onApprove} />
-            </PayPalScriptProvider>
 
         </div>
     );
