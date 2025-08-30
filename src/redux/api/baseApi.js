@@ -5,9 +5,8 @@ import { decodedToken } from "@/utils/VerifyJwtToken";
 import { logout, setRole, setToken } from "../features/auth/authSlice"; // ✅ Ensure correct import
 
 // API Base URL
-// const BASE_URL = `https://api.morfitter.com/api/v1`;
+const BASE_URL = `https://api.morfitter.com/api/v1`;
 // const BASE_URL = `http://localhost:5002/api/v1`;
-const BASE_URL = `https://63314668bfab.ngrok-free.app/api/v1`;
 
 // ✅ Fetch base query with token setup
 const baseQuery = fetchBaseQuery({
