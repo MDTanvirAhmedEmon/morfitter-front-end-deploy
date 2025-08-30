@@ -13,13 +13,13 @@ import { setInfo, setProfile } from "@/redux/features/auth/registerSlice";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import addProfilePic from "../../../../assets/profile/add-profile-pic.svg";
-import { useCheckTraineeAvailabilityQuery } from "@/redux/features/auth/authApi";
+// import { useCheckTraineeAvailabilityQuery } from "@/redux/features/auth/authApi";
 
 const UserRegister = () => {
   const [profilePic, setProfilePic] = useState(null);
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const { data } = useCheckTraineeAvailabilityQuery({ userName: username, email: email });
+  // const [username, setUsername] = useState('');
+  // const [email, setEmail] = useState('');
+  // const { data } = useCheckTraineeAvailabilityQuery({ userName: username, email: email });
 
   const [form] = Form.useForm();
   const dispatch = useDispatch();
@@ -317,8 +317,10 @@ const UserRegister = () => {
                   { required: true, message: "Please input your username!" },
                 ]}
               >
-                <Input onChange={(e) => setUsername(e.target.value)} placeholder="Username" className="" />
-                {<p className=" text-red-500">{data?.message?.userName}</p>}
+                <Input
+                  // onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Username" className="" />
+                {/* {<p className=" text-red-500">{data?.message?.userName}</p>} */}
               </Form.Item>
 
               <Form.Item
@@ -365,14 +367,14 @@ const UserRegister = () => {
               className=" w-full"
             >
               <Input
-                onChange={(e) => setEmail(e.target.value)}
+                // onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email"
               // suffix={
               //   <IoMdArrowDropdown className=" w-6 h-6 text-greenColor" />
               // }
 
               />
-              {<p className=" text-red-500">{data?.message?.email}</p>}
+              {/* {<p className=" text-red-500">{data?.message?.email}</p>} */}
             </Form.Item>
             {/* Terms Checkbox */}
             <Form.Item
