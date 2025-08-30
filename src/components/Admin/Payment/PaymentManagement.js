@@ -1,15 +1,33 @@
 "use client";
-import { useGetAllPaymentsQuery } from "@/redux/features/admin/payments/paymentApi";
-import { Avatar, Pagination, Spin, Table } from "antd";
+import { useGetAllPaymentsQuery, useUpdatePaymentStatusMutation } from "@/redux/features/admin/payments/paymentApi";
+import { Avatar, message, Pagination, Spin, Table } from "antd";
 import { useState } from "react";
 
 const PaymentManagement = ({ searchQuery }) => {
     const [currentPage, setCurrentPage] = useState(1);
+
     const { data: allpayments, isLoading } =
         useGetAllPaymentsQuery({
             page: currentPage,
             searchTerm: searchQuery,
         });
+
+    const [updatePaymentStatus] = useUpdatePaymentStatusMutation();
+
+    const updataPaymentStatusHandler = (record) => {
+        updatePaymentStatus(
+            {
+                paymentStatus: record?.paymentStatus === "paid" ? "pending" : "paid",
+                id: record._id
+            }
+        ).unwrap()
+            .then(() => {
+                message.success("Payment status updated successfully");
+            })
+            .catch(() => {
+                message.error("Failed to update payment status");
+            });
+    }
 
     const columns = [
         {
@@ -51,6 +69,11 @@ const PaymentManagement = ({ searchQuery }) => {
             render: (_, record) => record?.buyer?.contactNo,
         },
         {
+            title: "Session Title",
+            dataIndex: "contactNo",
+            render: (_, record) => <p>{`${record?.session?.title}`}</p>,
+        },
+        {
             title: "Trainer Name",
             dataIndex: "contactNo",
             render: (_, record) => <p>{`${record?.trainer?.firstName} ${record?.trainer?.lastName}`}</p>,
@@ -81,13 +104,37 @@ const PaymentManagement = ({ searchQuery }) => {
                 return (
                     <button
                         className={`cursor-default px-2 py-1 rounded-md ${record?.paymentStatus === "paid"
-                                ? "bg-green-500 text-white"
-                                : "bg-gray-400 text-white"
+                            ? "bg-green-500 text-white"
+                            : "bg-gray-400 text-white"
                             }`}
                     >
                         {record?.paymentStatus || "N/A"}
                     </button>
                 );
+            },
+        },
+        {
+            title: "Update Payment Status",
+            dataIndex: "userData",
+            key: "status",
+            render: (_, record) => {
+                if (record?.paymentStatus === "free") {
+                    return (
+                        <button className=" px-2 py-1 rounded-md bg-gray-400 text-white">
+                            free
+                        </button>
+                    );
+                } else {
+                    return (
+                        <button
+                            onClick={() => updataPaymentStatusHandler(record)}
+                            className="px-2 py-1 rounded-md bg-greenColor text-white cursor-pointer"
+                        >
+                            {record?.paymentStatus === "pending" ? "Make as Paid" : "Make as Pending"}
+                        </button>
+
+                    )
+                } 
             },
         }
     ];

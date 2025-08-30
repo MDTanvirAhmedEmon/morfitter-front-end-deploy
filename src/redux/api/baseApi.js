@@ -96,6 +96,7 @@ export const baseApi = createApi({
     "terms",
     'chats',
     "admin-content",
+    "payments",
   ],
   endpoints: () => ({}),
 });
