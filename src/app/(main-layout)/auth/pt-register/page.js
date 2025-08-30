@@ -13,10 +13,14 @@ import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { setInfo, setProfile } from "@/redux/features/auth/registerSlice";
 import addProfilePic from "../../../../assets/profile/add-profile-pic.svg";
+import { useCheckTrainerAvailabilityQuery } from "@/redux/features/auth/authApi";
 
 const PTRegister = () => {
   const [profilePic, setProfilePic] = useState(null);
   const [form] = Form.useForm();
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const { data } = useCheckTrainerAvailabilityQuery({ userName: username, email: email });
   const dispatch = useDispatch();
   const router = useRouter();
   const handleProfilePicUpload = (e) => {
@@ -161,9 +165,11 @@ const PTRegister = () => {
                 className=" w-full"
               >
                 <Input
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email"
                   className="w-full"
                 />
+                {<p className=" text-red-500">{data?.message?.email}</p>}
               </Form.Item>
 
               <Form.Item
@@ -247,7 +253,8 @@ const PTRegister = () => {
                   { required: true, message: "Please input your username!" },
                 ]}
               >
-                <Input placeholder="User Name" className="w-full" />
+                <Input onChange={(e) => setUsername(e.target.value)} placeholder="User Name" className="w-full" />
+                {<p className=" text-red-500">{data?.message?.userName}</p>}
               </Form.Item>
 
               <Form.Item

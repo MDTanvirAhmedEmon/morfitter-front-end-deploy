@@ -108,6 +108,22 @@ const authApi = baseApi.injectEndpoints({
       providesTags: ['user']
     }),
 
+    checkTraineeAvailability: builder.query({
+      query: (params) => ({
+        url: "/users/check-trainee-availability",
+        method: "GET",
+        params,
+      }),
+    }),
+
+    checkTrainerAvailability: builder.query({
+      query: (params) => ({
+        url: "/users/check-trainer-availability",
+        method: "GET",
+        params,
+      }),
+    }),
+
   }),
 });
 
@@ -125,6 +141,8 @@ export const {
   useChangeUserPasswordMutation,
   useChangePasswordMutation,
   useGetMeQuery,
+  useCheckTraineeAvailabilityQuery,
+  useCheckTrainerAvailabilityQuery,
 
 } = authApi;
 
