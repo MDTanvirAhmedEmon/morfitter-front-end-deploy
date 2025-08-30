@@ -39,7 +39,7 @@ const MorfitterPts = () => {
     ];
 
     const { data, isLoading } = useGetAllTrainerQuery({ page: currentPage, searchTerm: searchTerm });
-    console.log('sdfdsafsfds', data);
+    // console.log('sdfdsafsfds', data);
     return (
         <section className="xxl:w-[1340px] mx-auto py-8 md:py-14">
             <div className="flex justify-end mx-3 xxl:mx-0">

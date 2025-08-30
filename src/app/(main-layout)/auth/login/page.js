@@ -22,12 +22,12 @@ const LogIn = () => {
       email: values?.email,
       password: values?.password,
     };
-    console.log("log in data", LogInData);
+    // console.log("log in data", LogInData);
 
     logIn(LogInData)
       .unwrap()
       .then((data) => {
-        console.log("log in data", data);
+        // console.log("log in data", data);
 
         const verifiedToken = decodedToken(data?.data?.accessToken);
         Cookies.set('morfitter-token', data?.data?.accessToken)

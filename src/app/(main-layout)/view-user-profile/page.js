@@ -19,10 +19,10 @@ const ViewUserProfile = () => {
     const userId = searchParams.get("userId");
     const [dofolowUnfollow, { isLoading }] = useDofolowUnfollowMutation();
     const { data: trainee } = useGetSingleUserQuery(userId)
-    console.log(trainee);
+    // console.log(trainee);
     const { data: myFollower } = useGetMyFollowersQuery(role?.id);
     const { data: following } = useGetWhoIAmFollowingQuery(userId);
-    console.log(following?.data);
+    // console.log(following?.data);
     const handleFollowUnfollow = () => {
         dofolowUnfollow({
             follower_id: role?.id, // logged in User _id 

@@ -9,7 +9,7 @@ const EditSessionModal = ({
     isEditModalOpen,
     session,
 }) => {
-    console.log(session);
+    // console.log(session);
     const [promoPic, setPromoPic] = useState(null);
     const [Video1, setVideo1] = useState(null);
     const [accessType, setAccessType] = useState(session?.accessType);
@@ -40,7 +40,7 @@ const EditSessionModal = ({
 
     const onFinish = (values) => {
         const formData = new FormData();
-        console.log("Success:", values);
+        // console.log("Success:", values);
         const sessionData = {
             sessionType: values.trainingType,
             title: values.title,

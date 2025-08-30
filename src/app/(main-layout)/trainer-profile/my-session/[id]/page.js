@@ -18,7 +18,7 @@ const SingleSession = () => {
 
     const router = useRouter();
     const { data } = useGetSingleSessionQuery(id);
-    console.log('session data', data);
+    // console.log('session data', data);
     const session = data?.data;
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);

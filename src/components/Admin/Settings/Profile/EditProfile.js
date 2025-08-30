@@ -14,7 +14,7 @@ function EditProfile() {
     // contact: '',
   });
 
-  console.log('safddsafdsafsdaf', formData);
+  // console.log('safddsafdsafsdaf', formData);
 
   // Set default form data when user is available
   useEffect(() => {

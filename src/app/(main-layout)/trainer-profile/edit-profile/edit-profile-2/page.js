@@ -27,12 +27,12 @@ const PTEditProfile2 = () => {
     const dispatch = useDispatch();
     const router = useRouter();
     const { user, role } = useSelector((state) => state.auth);
-    console.log('dsfjshdalifhnasfg', user?.specialism);
+    // console.log('dsfjshdalifhnasfg', user?.specialism);
     const specialism = user?.specialism ? user?.specialism : []
     const [updateTrainer, { isLoading }] = useUpdateTrainerMutation();
 
     const [selectedLogos, setSelectedLogos] = useState(specialism);
-    console.log('from select', selectedLogos);
+    // console.log('from select', selectedLogos);
     const { info, profile } = useSelector((state) => state.register);
     const email = info?.email ? info?.email : role?.email
     const [onlineSession, setOnlineSession] = useState(user?.onlineSession);
@@ -135,7 +135,7 @@ const PTEditProfile2 = () => {
                 specialism: selectedLogos,
             }
         };
-        console.log("trainer page er data", data);
+        // console.log("trainer page er data", data);
         fromData.append('data', JSON.stringify(data))
         // if (!onlineSession) {
         //     notification.error({

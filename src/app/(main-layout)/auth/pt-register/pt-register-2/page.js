@@ -83,7 +83,7 @@ const PTRegister2 = () => {
       },
       specialism: selectedLogos,
     };
-    console.log("trainer page er data", data);
+    // console.log("trainer page er data", data);
 
     const cleanObject = (obj) => {
       return Object.fromEntries(
@@ -126,10 +126,10 @@ const PTRegister2 = () => {
     const formData = new FormData();
     formData.append("data", JSON.stringify(data));
     formData.append("file", profile);
-    console.log(data);
+    // console.log(data);
     createTrainer(formData).unwrap()
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         const verifiedToken = decodedToken(data?.data?.accessToken);
         dispatch(setToken(data?.data?.accessToken));
         Cookies.set('morfitter-token', data?.data?.accessToken)

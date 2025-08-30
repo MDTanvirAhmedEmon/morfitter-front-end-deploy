@@ -21,9 +21,9 @@ const CreatingSession = () => {
     const [form] = useForm();
     const router = useRouter();
     const [selectedLogos, setSelectedLogos] = useState(null);
-    console.log(selectedLogos);
+    // console.log(selectedLogos);
     const [profilePic, setProfilePic] = useState(null);
-    console.log(profilePic);
+    // console.log(profilePic);
     const handleProfilePicUpload = (e) => {
         setProfilePic(e.file.originFileObj);
     };

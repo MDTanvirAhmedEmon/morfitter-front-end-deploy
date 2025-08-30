@@ -10,7 +10,7 @@ import ChatContainer from "./ChatContainer";
 
 const MyChatsDrawer = ({ onClose, open }) => {
     const { user, role } = useSelector((state) => state.auth);
-    console.log('user', user);
+    // console.log('user', user);
     const [selectedUser, setSelectedUser] = useState(null);
     const [messages, setMessages] = useState([]);
     const messageEndRef = useRef(null);
@@ -20,7 +20,7 @@ const MyChatsDrawer = ({ onClose, open }) => {
         refetchOnFocus: true
     });
 
-    console.log('user list form db', data);
+    // console.log('user list form db', data);
 
     // const { data } = useGetChatActorQuery(profileId)
     // console.log('Raw data', data)

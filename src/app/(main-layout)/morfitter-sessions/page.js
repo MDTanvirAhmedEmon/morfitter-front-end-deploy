@@ -34,7 +34,7 @@ const MorfitterSessions = () => {
         searchTerm: searchTerm || undefined,
     })
 
-    console.log(data);
+    // console.log(data);
 
     const handlePageChange = (page) => {
         setCurrentPage(page);

@@ -7,13 +7,13 @@ import io from 'socket.io-client';
 import ChatsSkeleton from '../Skeleton/ChatsSkeleton';
 
 export default function ChatContainer({ selectedUser, setSelectedUser }) {
-    console.log('selectedUser', selectedUser);
+    // console.log('selectedUser', selectedUser);
     const [socket, setSocket] = useState(null)
     const { user, role } = useSelector((state) => state.auth);
-    console.log('user from redux', user);
+    // console.log('user from redux', user);
     const { data: messageFromDB, isLoading } = useGetMessageWithOthersQuery({ sender: user?._id, receiver: selectedUser?.traineeTrainerId }, {
         refetchOnMountOrArgChange: true,});
-    console.log(messageFromDB);
+    // console.log(messageFromDB);
     const [message, setMessage] = useState([]);
     const [messageInput, setMessageInput] = useState('');
     const chatContainerRef = useRef(null);
@@ -32,7 +32,7 @@ export default function ChatContainer({ selectedUser, setSelectedUser }) {
         setSocket(newSocket)
 
         newSocket.on(`received${user?._id}`, (data) => {
-            console.log('from socket', data);
+            // console.log('from socket', data);
             setMessage((prevsetMessage) => [...prevsetMessage, data]);
             scrollToBottom();
         });

@@ -20,7 +20,7 @@ const ResetAdminPassword = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(newPassword, tokenCode, confirmPassword);
+    // console.log(newPassword, tokenCode, confirmPassword);
     if (!newPassword || !confirmPassword) {
       notification.error({
         message: "Error",

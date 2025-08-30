@@ -27,7 +27,7 @@ function TestimonialsModal({ setTestimonialsVisible }) {
       trainer_id: user?._id,
       trainee_id: id,
     };
-    console.log(data);
+    // console.log(data);
     createInvitation(data)
       .unwrap()
       .then(() => {

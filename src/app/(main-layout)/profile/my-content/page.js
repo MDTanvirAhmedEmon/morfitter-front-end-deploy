@@ -13,7 +13,7 @@ const MyContent = () => {
     page: currentPage,
     sortOrder: "desc",
   });
-  console.log(data?.data?.data);
+  // console.log(data?.data?.data);
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };

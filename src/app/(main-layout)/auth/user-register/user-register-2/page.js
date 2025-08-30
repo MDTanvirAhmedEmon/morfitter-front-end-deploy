@@ -24,9 +24,9 @@ import { clearRegisterInfo } from "@/redux/features/auth/registerSlice";
 
 const UserRegister2 = () => {
   const [selectedLogos, setSelectedLogos] = useState([]);
-  console.log("seletedLogos", selectedLogos);
+  // console.log("seletedLogos", selectedLogos);
   const { info, profile } = useSelector((state) => state.register);
-  console.log(info, profile);
+  // console.log(info, profile);
 
   const [createTrainee, { isLoading }] = useCreateTraineeMutation();
   const [height, setHeight] = useState(null);
@@ -93,7 +93,7 @@ const UserRegister2 = () => {
       },
       traineeData: filteredTraineeData,
     };
-    console.log(data);
+    // console.log(data);
 
     // if (!fitterGoal) {
     //     notification.error({

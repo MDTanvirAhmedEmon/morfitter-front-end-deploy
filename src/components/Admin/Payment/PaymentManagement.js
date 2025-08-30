@@ -10,7 +10,6 @@ const PaymentManagement = ({ searchQuery }) => {
             page: currentPage,
             searchTerm: searchQuery,
         });
-    console.log(allpayments?.data?.data);
 
     const columns = [
         {

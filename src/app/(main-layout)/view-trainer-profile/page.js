@@ -33,7 +33,7 @@ const ViewTrainerProfile = () => {
   const userId = searchParams.get("userId");
   const { role } = useSelector((state) => state.auth)
   const { data: trainer } = useGetSingleUserQuery(userId);
-  console.log('trainer sdfasdf sdfjs;ldfj', trainer);
+  // console.log('trainer sdfasdf sdfjs;ldfj', trainer);
 
   const { data: specialism } = useGetMySpecialismQuery(trainerId);
   const { data: qualification } = useGetMyQualificationQuery(trainerId);

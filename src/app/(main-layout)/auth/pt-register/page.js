@@ -46,7 +46,7 @@ const PTRegister = () => {
       userName: values?.userName,
       password: values.password,
     };
-    console.log("Registration Data of user ", TrainerRegistrationData);
+    // console.log("Registration Data of user ", TrainerRegistrationData);
     dispatch(setInfo(TrainerRegistrationData))
 
     dispatch(setProfile(profilePic))

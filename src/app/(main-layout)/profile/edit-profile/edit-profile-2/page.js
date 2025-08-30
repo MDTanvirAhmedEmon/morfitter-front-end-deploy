@@ -25,7 +25,7 @@ import { decodedToken } from "@/utils/VerifyJwtToken";
 
 const EditProfile2 = () => {
   const { user, role } = useSelector((state) => state.auth);
-  console.log(user);
+  // console.log(user);
   const interest = user?.interest ? user?.interest : [];
   const [selectedLogos, setSelectedLogos] = useState(interest);
 
@@ -99,9 +99,9 @@ const EditProfile2 = () => {
     updateTraineeProfile({ data: formData, id: user?._id })
       .unwrap()
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         const verifiedtToken = decodedToken(res?.data?.accessToken);
-        console.log(verifiedtToken);
+        // console.log(verifiedtToken);
         dispatch(clearRegisterInfo());
         dispatch(setToken(res?.data?.accessToken));
         Cookies.set("morfitter-token", res?.data?.accessToken);

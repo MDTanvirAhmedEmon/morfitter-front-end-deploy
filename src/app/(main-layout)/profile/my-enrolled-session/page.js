@@ -9,7 +9,7 @@ import { Avatar } from "antd";
 
 const MyEnrolledSession = () => {
   const { data, isLoading } = useMyEnrolledSessionQuery();
-  console.log(data);
+  // console.log(data);
 
   return (
     <div>

@@ -17,9 +17,9 @@ import { useForm } from 'antd/es/form/Form';
 import { useRouter } from 'next/navigation';
 
 const EditMyContentModal = ({ isModalOpen, handleOk, handleCancel, id }) => {
-    console.log(id);
+    // console.log(id);
     const { data } = useGetSingleContentQuery(id);
-    console.log('data from db', data);
+    // console.log('data from db', data);
     const [fileType, setFileType] = useState('audio');
     const [form] = useForm();
     const router = useRouter();

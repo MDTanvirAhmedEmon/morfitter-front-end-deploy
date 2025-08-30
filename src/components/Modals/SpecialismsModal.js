@@ -19,7 +19,7 @@ function SpecialismsModal({ setSpecialismsVisible }) {
   const [createSpecialism, { isLoading }] = useCreateSpecialismMutation();
   // const [specialism, setSpecialism] = useState(null);
   const [selectedLogos, setSelectedLogos] = useState([]);
-  console.log(selectedLogos);
+  // console.log(selectedLogos);
   const interests = [
     { name: "Boxercise", icon: logo1 },
     { name: "Calisthenics", icon: logo2 },

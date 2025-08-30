@@ -11,7 +11,7 @@ import MakePayment from "./MakePayment";
 
 const EnrollModal = ({ isModalOpen, handleCancel, handleOk, session }) => {
 
-  console.log(session);
+  // console.log(session);
 
   const { role } = useSelector((state) => state.auth);
   const router = useRouter();

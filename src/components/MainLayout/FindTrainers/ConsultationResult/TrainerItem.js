@@ -17,7 +17,7 @@ import FindTrainersChats from './FindTrainersChats';
 import profileImage from '../../../../assets/profile/profile_image.webp'
 
 const TrainerItem = ({ trainer }) => {
-    console.log('tainer', trainer);
+    // console.log('tainer', trainer);
 
     const [selectedLogos, setSelectedLogos] = useState([]);
     const [open, setOpen] = useState(false);

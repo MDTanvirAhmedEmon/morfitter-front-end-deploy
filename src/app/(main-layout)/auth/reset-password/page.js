@@ -21,7 +21,7 @@ const ResetPassword = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(newPassword, tokenCode, confirmPassword);
+    // console.log(newPassword, tokenCode, confirmPassword);
     if (!newPassword || !confirmPassword) {
       notification.error({
         message: "Error",
@@ -41,7 +41,7 @@ const ResetPassword = () => {
     resetPassword({ email, tokenCode, newPassword: newPassword })
       .unwrap()
       .then((response) => {
-        console.log("response of reset", response);
+        // console.log("response of reset", response);
         notification.success({
           message: "Success",
           description: response.message,

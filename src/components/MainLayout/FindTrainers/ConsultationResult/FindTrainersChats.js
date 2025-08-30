@@ -8,10 +8,10 @@ import io from 'socket.io-client';
 const FindTrainersChats = ({ onClose, open, receiverId }) => {
     const [socket, setSocket] = useState(null)
     const { user, role } = useSelector((state) => state.auth)
-    console.log('user', user);
+    // console.log('user', user);
     const { data: messageFromDB } = useGetMessageWithOthersQuery({ sender: user?._id, receiver: receiverId });
     const [message, setMessage] = useState([]);
-    console.log('form state', message);
+    // console.log('form state', message);
     const [messageInput, setMessageInput] = useState('');
 
     useEffect(() => {
@@ -27,7 +27,7 @@ const FindTrainersChats = ({ onClose, open, receiverId }) => {
 
 
         newSocket.on(`received${user?._id}`, (data) => {
-            console.log('from socket', data);
+            // console.log('from socket', data);
             setMessage((prevsetMessage) => [...prevsetMessage, data]);
         });
 
@@ -37,7 +37,7 @@ const FindTrainersChats = ({ onClose, open, receiverId }) => {
     }, [])
 
     const sendMessage = () => {
-        console.log(messageInput);
+        // console.log(messageInput);
         if (receiverId && message && user?._id) {
             socket.emit('sendUser', {
                 sender: user?._id,

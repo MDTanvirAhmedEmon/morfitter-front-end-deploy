@@ -17,7 +17,7 @@ const AddProfileSocialModal = ({ isModalOpen, handleCancel, handleOk }) => {
     useUpdateTraineeProfileMutation();
   const onFinish = (values) => {
     const formData = new FormData();
-    console.log("Submitted Values:", values);
+    // console.log("Submitted Values:", values);
     formData.append("data", JSON.stringify({ trainee: values }));
     updateTraineeProfile({ data: formData, id: user?._id })
       .unwrap()

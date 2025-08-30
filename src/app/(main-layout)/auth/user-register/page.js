@@ -36,7 +36,7 @@ const UserRegister = () => {
 
     // Construct ISO Date
     const dob = new Date(year, month - 1, day).toISOString();
-    console.log("ISO DOB:", dob);
+    // console.log("ISO DOB:", dob);
 
     // Prepare registration data
     const registrationData = {
@@ -53,7 +53,7 @@ const UserRegister = () => {
       city: values.city,
     };
     dispatch(setInfo(registrationData))
-    console.log("Registration Data:", registrationData);
+    // console.log("Registration Data:", registrationData);
 
     // Validate profilePic
     if (profilePic) {

@@ -13,7 +13,7 @@ const ConnectStripeModal = ({ isModalOpen, handleCancel, handleOk, trainerId }) 
     };
 
     const handleConnectClick = () => {
-        console.log("Email entered:", email);
+        // console.log("Email entered:", email);
         if (!email) {
             message.error("Please enter email");
             return;
@@ -23,7 +23,7 @@ const ConnectStripeModal = ({ isModalOpen, handleCancel, handleOk, trainerId }) 
                 window.location.href = data?.data;
             })
             .catch((error) => {
-                console.log(error);
+                // console.log(error);
                 message.error(error?.data?.message || "Something went wrong!");
             })
     };

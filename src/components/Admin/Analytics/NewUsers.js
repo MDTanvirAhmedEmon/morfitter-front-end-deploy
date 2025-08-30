@@ -5,7 +5,7 @@ import { Avatar, Spin, Table } from "antd";
 
 const NewUsers = () => {
   const { data: getAllNewUsersData, isLoading } = useGetAllNewUsersQuery();
-  console.log(getAllNewUsersData?.data);
+  // console.log(getAllNewUsersData?.data);
 
   // Define columns for the table
   const columns = [

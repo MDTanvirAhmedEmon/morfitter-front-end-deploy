@@ -24,7 +24,7 @@ const OnlineSessionContent = ({ sessionInfo }) => {
     const [updateSession, { isLoading }] = useUpdateSessionMutation();
 
     const onFinish = (values) => {
-        console.log("Form values:", values)
+        // console.log("Form values:", values)
 
         const formData = new FormData();
         formData.append("data", JSON.stringify(values));

@@ -14,7 +14,7 @@ const PrivacyPolicy = () => {
   const [content, setContent] = useState("");
 
   const { data } = useGetPrivacyPolicyQuery();
-  console.log(data?.[0]);
+  // console.log(data?.[0]);
 
   useEffect(() => {
     setContent(data?.[0]?.policy);

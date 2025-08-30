@@ -30,7 +30,7 @@ const SingleSessionOfPt = () => {
         }
     }, []);
 
-    console.log('cheked data', checkedData?.data?.result?.sessionCompleted);
+    // console.log('cheked data', checkedData?.data?.result?.sessionCompleted);
 
     const { data, isLoading, error } = useGetSingleSessionQuery(id);
 

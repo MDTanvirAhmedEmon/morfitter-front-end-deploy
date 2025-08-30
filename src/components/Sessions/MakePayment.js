@@ -15,7 +15,7 @@ const MakePayment = ({ session, role }) => {
         enrollSession(enrollData)
             .unwrap()
             .then((data) => {
-                console.log(data);
+                // console.log(data);
                 window.location.href = data?.data?.url;
             })
             .catch((error) => {

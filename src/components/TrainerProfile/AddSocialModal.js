@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 const AddSocialModal = ({ isModalOpen, handleCancel, handleOk }) => {
   const { user } = useSelector((state) => state.auth);
-  console.log(user);
+  // console.log(user);
 
   const initialValues = {
     TikTok: user?.TikTok || "",

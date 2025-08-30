@@ -15,7 +15,7 @@ const SingleSession = () => {
 
 
     const { data, isLoading, error } = useGetSingleSessionForAdminQuery(id);
-    console.log(data);
+    // console.log(data);
 
     const videoTutorials = data?.data?.recordedContent?.map(video => ({
         ...video,

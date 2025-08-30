@@ -61,12 +61,12 @@ const TrainerProfile = () => {
   const { data: qualification } = useGetMyQualificationQuery(user?._id);
   // review
   const { data: reviews } = useGetReviewQuery(user?._id);
-  console.log("review", reviews);
+  // console.log("review", reviews);
   // members
   const { data: members } = useGetMembersQuery(user?._id);
   // me session
   const { data: session } = useGetMySessionQuery(user?._id);
-  console.log("session", session);
+  // console.log("session", session);
 
   const uploadImage = () => {
     const formData = new FormData();

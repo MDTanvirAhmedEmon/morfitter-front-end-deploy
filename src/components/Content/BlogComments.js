@@ -14,7 +14,7 @@ const BlogComments = ({ id }) => {
   const [comments, setComments] = useState("");
 
   const { data } = useGetAllCommentsQuery(id);
-  console.log(data?.data);
+  // console.log(data?.data);
   const [doComment, { isLoading }] = useDoCommentMutation();
 
   const handleComment = () => {

@@ -21,7 +21,7 @@ const SessionsPage = () => {
     fitnessFocus: specialism || undefined,
     searchTerm: searchTerm || undefined,
   })
-  console.log(data);
+  // console.log(data);
   const [blockUnblockSession] = useBlockUnblockSessionMutation();
 
   const handleBlockUnblock = (id) => {

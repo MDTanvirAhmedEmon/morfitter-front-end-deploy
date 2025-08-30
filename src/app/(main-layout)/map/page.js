@@ -34,7 +34,7 @@ function Map() {
                 (pos) => {
                     const { latitude, longitude } = pos.coords;
                     setCurrentLocation({ lat: latitude, lng: longitude });
-                    console.log("Your location:", { lat: latitude, lng: longitude });
+                    // console.log("Your location:", { lat: latitude, lng: longitude });
                 },
                 (err) => console.error("Geolocation error:", err)
             );

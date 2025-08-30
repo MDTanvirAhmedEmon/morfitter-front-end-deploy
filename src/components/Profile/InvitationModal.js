@@ -4,7 +4,7 @@ import SingleModalItem from "./SingleModalItem";
 
 const InvitationModal = ({ isInvitationModalOpen, handleInvitationCancel, handleInvitationOk, data }) => {
 
-    console.log('dataadat', data);
+    // console.log('dataadat', data);
 
 
     return (

@@ -40,7 +40,7 @@ const Profile = () => {
         setProfilePic(e.file.originFileObj);
     };
     const { data: membership } = useGetMembershipQuery();
-    console.log(membership);
+    // console.log(membership);
     const { data: myFollower } = useGetMyFollowersQuery(role?.id);
 
     const showInvitationModal = () => {
