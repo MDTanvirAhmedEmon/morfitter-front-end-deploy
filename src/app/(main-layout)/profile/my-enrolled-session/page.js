@@ -1,15 +1,23 @@
 "use client";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useMyEnrolledSessionQuery } from "@/redux/features/session/sessionApi";
-
 import SessionSkeleton from "@/components/Skeleton/SessionSkeleton";
 import { FaStar } from "react-icons/fa";
 import { Avatar } from "antd";
 
 const MyEnrolledSession = () => {
   const { data, isLoading } = useMyEnrolledSessionQuery();
-  // console.log(data);
+  const [alertMessage, setAlertMessage] = useState(null);
+
+  const handleLinkClick = (paymentStatus) => {
+    if (paymentStatus === "pending") {
+      setAlertMessage("Please wait for payment confirmation.");
+    } else {
+      setAlertMessage(null); // Clear any previous alerts
+    }
+  };
 
   return (
     <div>
@@ -23,80 +31,161 @@ const MyEnrolledSession = () => {
         ) : data?.data?.length ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
             {data?.data?.map((item) => (
-              <Link
-                key={item?.session_id}
-                href={`/morfitter-sessions/${item?.sessionDetails?.sessionType === "live_group" ? 'single-online-session' : 'single-session-of-pt'}/${item?.sessionDetails?._id}?host=${item?.owner?.name}`}
-              >
-                <div className="cursor-pointer h-[450px] shadow-[0px_10px_30px_rgba(0,0,0,0.1)] rounded-md relative">
-                  <Image
-
-                    className="w-full h-[55%] object-cover rounded-t-md"
-                    src={`https://api.morfitter.com${item?.sessionDetails?.promo_image}`}
-                    alt="session"
-                    width={500}
-                    height={500}
-                  />
-                  <div className=' mx-4 py-3'>
-                    <div className=' flex items-center gap-3'>
-                      <Avatar
-                        size={50}
-                        src={
-                          item?.owner?.profileImageUrl
-                            ? `https://api.morfitter.com${item?.owner?.profileImageUrl}`
-                            : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                        }
-                      />
-                      <div>
-                        <h2 className=' text-black font-semibold' >{item?.owner?.name}</h2>
-                        <span className=' text-black bg-gray-100 rounded px-2' >Trainer</span>
+              <div key={item?.session_id}>
+                {item?.paymentStatus === "pending" ? (
+                  <div
+                    className="cursor-pointer h-[450px] shadow-[0px_10px_30px_rgba(0,0,0,0.1)] rounded-md relative"
+                    onClick={() => handleLinkClick(item.paymentStatus)}
+                  >
+                    {/* Session Image */}
+                    <Image
+                      className="w-full h-[55%] object-cover rounded-t-md"
+                      src={`https://api.morfitter.com${item?.sessionDetails?.promo_image}`}
+                      alt="session"
+                      width={500}
+                      height={500}
+                    />
+                    <div className="mx-4 py-3">
+                      <div className="flex items-center gap-3">
+                        <Avatar
+                          size={50}
+                          src={
+                            item?.owner?.profileImageUrl
+                              ? `https://api.morfitter.com${item?.owner?.profileImageUrl}`
+                              : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                          }
+                        />
+                        <div>
+                          <h2 className="text-black font-semibold">
+                            {item?.owner?.name}
+                          </h2>
+                          <span className="text-black bg-gray-100 rounded px-2">
+                            Trainer
+                          </span>
+                        </div>
                       </div>
-
-                    </div>
-                    <div>
-                      <h2 className='mt-4'>
-                        {item?.sessionDetails?.title
-                          ? item?.sessionDetails?.title?.length > 80
-                            ? `${item?.sessionDetails?.title.slice(0, 80)}...`
-                            : item?.sessionDetails?.title
-                          : "No Title Available"}
-                      </h2>
-                      {
-                        item?.averageRating < 1 ?
-                          <div className=' flex items-center gap-2 absolute bottom-4 left-4'>
-                            <FaStar className=' w-6 h-6' />
-
+                      {/* Title */}
+                      <div>
+                        <h2 className="mt-4">
+                          {item?.sessionDetails?.title
+                            ? item?.sessionDetails?.title?.length > 80
+                              ? `${item?.sessionDetails?.title.slice(0, 80)}...`
+                              : item?.sessionDetails?.title
+                            : "No Title Available"}
+                        </h2>
+                        {/* Rating */}
+                        {item?.averageRating < 1 ? (
+                          <div className="flex items-center gap-2 absolute bottom-4 left-4">
+                            <FaStar className="w-6 h-6" />
                             (0)
                           </div>
-                          :
-
-                          <div className=' flex items-center gap-2 absolute bottom-4 left-4'>
-                            <FaStar className=' w-6 h-6' />
-                            {(Math.round(item.averageRating * 2) / 2).toFixed(1)} {' '}
+                        ) : (
+                          <div className="flex items-center gap-2 absolute bottom-4 left-4">
+                            <FaStar className="w-6 h-6" />
+                            {(Math.round(item.averageRating * 2) / 2).toFixed(1)}{" "}
                             ({item?.totalReviews})
                           </div>
-                      }
-                      {
-                        item?.membership_fee > 0 ?
-                          <div className=' font-semibold absolute bottom-4 right-4'>
+                        )}
+                        {/* Price */}
+                        {item?.membership_fee > 0 ? (
+                          <div className="font-semibold absolute bottom-4 right-4">
                             price: ${item?.membership_fee}
                           </div>
-                          :
-                          <div className=' font-semibold absolute bottom-4 right-4'>
+                        ) : (
+                          <div className="font-semibold absolute bottom-4 right-4">
                             Free
                           </div>
-                      }
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
+                ) : (
+                  <Link
+                    href={`/morfitter-sessions/${
+                      item?.sessionDetails?.sessionType === "live_group"
+                        ? "single-online-session"
+                        : "single-session-of-pt"
+                    }/${item?.sessionDetails?._id}?host=${item?.owner?.name}`}
+                  >
+                    <div className="cursor-pointer h-[450px] shadow-[0px_10px_30px_rgba(0,0,0,0.1)] rounded-md relative">
+                      <Image
+                        className="w-full h-[55%] object-cover rounded-t-md"
+                        src={`https://api.morfitter.com${item?.sessionDetails?.promo_image}`}
+                        alt="session"
+                        width={500}
+                        height={500}
+                      />
+                      <div className="mx-4 py-3">
+                        <div className="flex items-center gap-3">
+                          <Avatar
+                            size={50}
+                            src={
+                              item?.owner?.profileImageUrl
+                                ? `https://api.morfitter.com${item?.owner?.profileImageUrl}`
+                                : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                            }
+                          />
+                          <div>
+                            <h2 className="text-black font-semibold">
+                              {item?.owner?.name}
+                            </h2>
+                            <span className="text-black bg-gray-100 rounded px-2">
+                              Trainer
+                            </span>
+                          </div>
+                        </div>
+                        <div>
+                          <h2 className="mt-4">
+                            {item?.sessionDetails?.title
+                              ? item?.sessionDetails?.title?.length > 80
+                                ? `${item?.sessionDetails?.title.slice(0, 80)}...`
+                                : item?.sessionDetails?.title
+                              : "No Title Available"}
+                          </h2>
+                          {item?.averageRating < 1 ? (
+                            <div className="flex items-center gap-2 absolute bottom-4 left-4">
+                              <FaStar className="w-6 h-6" />
+                              (0)
+                            </div>
+                          ) : (
+                            <div className="flex items-center gap-2 absolute bottom-4 left-4">
+                              <FaStar className="w-6 h-6" />
+                              {(Math.round(item.averageRating * 2) / 2).toFixed(1)}{" "}
+                              ({item?.totalReviews})
+                            </div>
+                          )}
+                          {item?.membership_fee > 0 ? (
+                            <div className="font-semibold absolute bottom-4 right-4">
+                              price: ${item?.membership_fee}
+                            </div>
+                          ) : (
+                            <div className="font-semibold absolute bottom-4 right-4">
+                              Free
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                )}
+              </div>
             ))}
           </div>
         ) : (
-          <div className=" my-32 text-center">
-            <h2 className=" text-xl md:text-2xl">You have not enrolled in any sessions.</h2>
+          <div className="my-32 text-center">
+            <h2 className="text-xl md:text-2xl">
+              You have not enrolled in any sessions.
+            </h2>
           </div>
         )}
       </div>
+
+      {/* Show alert message if payment status is pending */}
+      {alertMessage && (
+        <div className="fixed bottom-0 left-0 right-0 bg-yellow-500 text-white p-4 text-center">
+          {alertMessage}
+        </div>
+      )}
     </div>
   );
 };
