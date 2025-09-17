@@ -1,6 +1,7 @@
 import Image from "next/image";
 import meetsImage from '../../../assets/fitness-meet.png';
 import meetsBg from '../../../assets/meets-bg.png';
+import Link from "next/link";
 
 const FitnessMeets = () => {
   const imageStyle = {
@@ -41,9 +42,11 @@ const FitnessMeets = () => {
                   expert trainers who help you achieve your fitness goals – whenever
                   and wherever it suits you.
                 </div>
-                <button className="bookBtn text-lg font-medium leading-8 text-white bg-secondary hover:bg-white hover:text-greenColor py-2 md:py-2 px-5 md:px-10 rounded-full capitalize transition-all hover:">
-                  Get Started
-                </button>
+                <Link href={`/auth/login`}>
+                  <button className="bookBtn text-lg font-medium leading-8 text-white bg-secondary hover:bg-white hover:text-greenColor py-2 md:py-2 px-5 md:px-10 rounded-full capitalize transition-all hover:">
+                    Get Started
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

@@ -193,9 +193,9 @@ const UserRegister2 = () => {
                 >
                   <Input
                     placeholder="Height"
-                    suffix={
-                      <IoMdArrowDropdown className=" w-6 h-6 text-greenColor" />
-                    }
+                    // suffix={
+                    //   <IoMdArrowDropdown className=" w-6 h-6 text-greenColor" />
+                    // }
                     className="w-full"
                   />
                 </Form.Item>
@@ -234,9 +234,9 @@ const UserRegister2 = () => {
                 >
                   <Input
                     placeholder="Weight"
-                    suffix={
-                      <IoMdArrowDropdown className=" w-6 h-6 text-greenColor" />
-                    }
+                    // suffix={
+                    //   <IoMdArrowDropdown className=" w-6 h-6 text-greenColor" />
+                    // }
                     className="w-full"
                   />
                 </Form.Item>
@@ -331,9 +331,9 @@ const UserRegister2 = () => {
                 >
                   <Input
                     placeholder="I've been working towards my goal...    "
-                    suffix={
-                      <IoMdArrowDropdown className=" w-6 h-6 text-greenColor" />
-                    }
+                    // suffix={
+                    //   <IoMdArrowDropdown className=" w-6 h-6 text-greenColor" />
+                    // }
                     className="w-full"
                   />
                 </Form.Item>
@@ -346,9 +346,9 @@ const UserRegister2 = () => {
                 >
                   <Input
                     placeholder="I want to achieve my goal by..."
-                    suffix={
-                      <IoMdArrowDropdown className=" w-6 h-6 text-greenColor" />
-                    }
+                    // suffix={
+                    //   <IoMdArrowDropdown className=" w-6 h-6 text-greenColor" />
+                    // }
                     className="w-full"
                   />
                 </Form.Item>

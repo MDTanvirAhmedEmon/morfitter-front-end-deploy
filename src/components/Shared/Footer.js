@@ -80,7 +80,17 @@ const Footer = () => {
                                         Home
                                     </span>
                                 </Link>
-                                <Link href="/about">
+                                <Link href="/content">
+                                    <span
+                                        className={`${isActive("/content")
+                                            ? " rounded-full  text-primary  "
+                                            : ""
+                                            }  text-lg rounded-full py-2 hover:text-primary  text-white `}
+                                    >
+                                        Content
+                                    </span>
+                                </Link>
+                                {/* <Link href="/about">
                                     <span
                                         className={`${isActive("/about")
                                             ? " rounded-full  text-primary  "
@@ -89,7 +99,7 @@ const Footer = () => {
                                     >
                                         About Us
                                     </span>
-                                </Link>
+                                </Link> */}
                                 <Link href="/personal-trainers">
                                     <span
                                         className={`${isActive("/personal-trainers")

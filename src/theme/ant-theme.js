@@ -10,6 +10,13 @@ export const mainTheme = {
       hoverBorderColor: "rgb(11,165,147)",
       activeBorderColor: "rgb(11,165,147)",
     },
+    InputNumber: {
+      inputFontSize: 16,
+      controlHeight: 40,
+      colorBorder: "rgb(11,165,147)",
+      hoverBorderColor: "rgb(11,165,147)",
+      activeBorderColor: "rgb(11,165,147)",
+    },
     DatePicker: {
       activeBorderColor: "rgb(11,165,147)",
       hoverBorderColor: "rgb(11,165,147)",

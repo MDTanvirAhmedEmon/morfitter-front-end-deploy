@@ -294,12 +294,16 @@ const UserRegister = () => {
               <Form.Item
                 name="mobile"
                 className=" md:w-1/2"
-              // rules={[
-              //   {
-              //     required: true,
-              //     message: "Please input your mobile number!",
-              //   },
-              // ]}
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your mobile number!",
+                  },
+                  {
+                    pattern: /^\+?[0-9]{1,4}?[-.\s]?[0-9]{6,15}$/, // Supports country code and 6-15 digits
+                    message: "Please enter a valid mobile number with optional country code (+) and 6-15 digits.",
+                  },
+                ]}
               >
                 <Input
                   placeholder="Mobile Number"
