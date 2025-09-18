@@ -51,7 +51,7 @@ const MakePayment = ({ session, role }) => {
 
             <div className="mt-4 p-4 bg-[#f8f8f8] rounded-lg shadow-sm">
                 <h2 className="text-xl font-semibold text-[#e26972]">
-                    Price: ${session?.membership_fee || "N/A"}
+                    Price: £{session?.membership_fee || "N/A"}
                 </h2>
             </div>
 

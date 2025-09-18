@@ -5,6 +5,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import io from 'socket.io-client';
 import ChatsSkeleton from '../Skeleton/ChatsSkeleton';
+import { chatsUrl } from '@/utils/Url';
 
 export default function ChatContainer({ selectedUser, setSelectedUser }) {
     // console.log('selectedUser', selectedUser);
@@ -28,7 +29,7 @@ export default function ChatContainer({ selectedUser, setSelectedUser }) {
     }, [messageFromDB]);
 
     useEffect(() => {
-        const newSocket = io('http://localhost:5000/live-chats');
+        const newSocket = io(chatsUrl);
         setSocket(newSocket)
 
         newSocket.on(`received${user?._id}`, (data) => {

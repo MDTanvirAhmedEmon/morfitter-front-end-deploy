@@ -89,7 +89,7 @@ const MyEnrolledSession = () => {
                         {/* Price */}
                         {item?.membership_fee > 0 ? (
                           <div className="font-semibold absolute bottom-4 right-4">
-                            price: ${item?.membership_fee}
+                            price: £{item?.membership_fee}
                           </div>
                         ) : (
                           <div className="font-semibold absolute bottom-4 right-4">
@@ -156,7 +156,7 @@ const MyEnrolledSession = () => {
                           )}
                           {item?.membership_fee > 0 ? (
                             <div className="font-semibold absolute bottom-4 right-4">
-                              price: ${item?.membership_fee}
+                              price: £{item?.membership_fee}
                             </div>
                           ) : (
                             <div className="font-semibold absolute bottom-4 right-4">

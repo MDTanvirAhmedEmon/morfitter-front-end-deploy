@@ -1,5 +1,6 @@
 "use client"
 import { useGetMessageWithOthersQuery } from '@/redux/features/chats/chatsApi';
+import { chatsUrl } from '@/utils/Url';
 import { ConfigProvider, Drawer, Input } from 'antd';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -22,7 +23,7 @@ const FindTrainersChats = ({ onClose, open, receiverId }) => {
 
     // Setup socket connection
     useEffect(() => {
-        const newSocket = io('http://localhost:5000/live-chats');
+        const newSocket = io(chatsUrl);
         setSocket(newSocket)
 
 
