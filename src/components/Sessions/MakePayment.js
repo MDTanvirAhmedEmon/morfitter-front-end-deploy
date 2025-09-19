@@ -54,10 +54,13 @@ const MakePayment = ({ session, role }) => {
                     Price: £{session?.membership_fee || "N/A"}
                 </h2>
             </div>
+            {
+                role?.role !== "trainer" &&
+                <button onClick={handleFreeEnroll} disabled={isLoading} className="mt-6 w-full py-3 rounded-lg bg-gradient-to-r from-[#FF7F50] to-[#28A745] text-white font-semibold text-lg shadow-md hover:scale-105 transition-all flex items-center justify-center gap-2">
+                    {isLoading ? "Processing..." : "Proceed to Payment 💳"}
+                </button>
+            }
 
-            <button onClick={handleFreeEnroll} disabled={isLoading} className="mt-6 w-full py-3 rounded-lg bg-gradient-to-r from-[#FF7F50] to-[#28A745] text-white font-semibold text-lg shadow-md hover:scale-105 transition-all flex items-center justify-center gap-2">
-                {isLoading ? "Processing..." : "Proceed to Payment 💳"}
-            </button>
 
         </div>
     );

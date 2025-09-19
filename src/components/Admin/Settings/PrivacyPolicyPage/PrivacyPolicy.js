@@ -80,7 +80,7 @@ const PrivacyPolicy = () => {
 
   return (
     <div className="bg-white p-4 rounded-md  h-auto mx-auto  ">
-      <p className="text-3xl font-bold my-5">Privacy Policy</p>
+      <p className="text-3xl font-bold my-5">Privacy Settings</p>
       <Form form={form} layout="vertical" onFinish={handleSubmit}>
         <Form.Item
           rules={[
@@ -90,7 +90,7 @@ const PrivacyPolicy = () => {
           <ReactQuill
             value={content}
             onChange={setContent}
-            placeholder="Write your privacy policy here..."
+            placeholder="Write your privacy here..."
             modules={quillModules}
             formats={quillFormats}
             className="h-96 mb-10"

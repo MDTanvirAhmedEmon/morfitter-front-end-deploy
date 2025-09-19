@@ -77,7 +77,7 @@ const TermsAndCondition = () => {
   ];
   return (
     <div className="bg-white p-4 rounded-md  h-auto mx-auto  ">
-      <p className="text-3xl font-bold my-5">Terms & Condition</p>
+      <p className="text-3xl font-bold my-5">Trust And Safety</p>
       <Form form={form} layout="vertical" onFinish={handleSubmit}>
         <Form.Item
           rules={[

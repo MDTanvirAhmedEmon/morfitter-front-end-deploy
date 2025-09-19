@@ -25,7 +25,7 @@ const EnrollModal = ({ isModalOpen, handleCancel, handleOk, session }) => {
       checkEnrollment({ session_id: session._id, user_id: role.id });
     }
   }, [checkEnrollment, role?.id, session]);
-  
+
   const handleFreeEnroll = () => {
     const enrollData = {
       session_id: session?._id,
@@ -89,14 +89,17 @@ const EnrollModal = ({ isModalOpen, handleCancel, handleOk, session }) => {
             <p className="text-[#323e4c] mt-2 text-sm">
               You can enroll in this session for free. No payment required!
             </p>
+            {
+              role?.role !== "trainer" &&
+              <button
+                onClick={handleFreeEnroll}
+                className="mt-6 w-full py-3 rounded-lg bg-gradient-to-r from-[#e26972] to-[#0ba593] text-white font-semibold text-lg shadow-md hover:scale-105 transition-all flex items-center justify-center gap-2"
+              >
+                Enroll For Free 🚀{" "}
+                {isLoading && <span className="animate-spin">⏳</span>}
+              </button>
+            }
 
-            <button
-              onClick={handleFreeEnroll}
-              className="mt-6 w-full py-3 rounded-lg bg-gradient-to-r from-[#e26972] to-[#0ba593] text-white font-semibold text-lg shadow-md hover:scale-105 transition-all flex items-center justify-center gap-2"
-            >
-              Enroll For Free 🚀{" "}
-              {isLoading && <span className="animate-spin">⏳</span>}
-            </button>
           </div>
         ))}
       {/* for paid session. here membership means paid session */}

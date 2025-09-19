@@ -52,13 +52,10 @@ const PTRegister = () => {
     };
     // console.log("Registration Data of user ", TrainerRegistrationData);
     dispatch(setInfo(TrainerRegistrationData))
-
     dispatch(setProfile(profilePic))
-
     router.push('/auth/pt-register/pt-register-2')
-
-
   };
+
 
   return (
     <section className="py-8 md:py-16">
@@ -160,8 +157,35 @@ const PTRegister = () => {
               <Form.Item
                 name="email"
                 rules={[
-                  { required: true, message: "Please input your email!" },
+                  {
+                    required: true,
+                    whitespace: true,
+                    message: "Please enter your email.",
+                    // transform ensures "   a@b.com  " becomes "a@b.com" for validation
+                    transform: (value) => (typeof value === "string" ? value.trim() : value),
+                  },
+                  {
+                    type: "email",
+                    message: "Enter a valid email address.",
+                  },
+                  {
+                    // Optional extra guard for very common mistakes
+                    validator: (_, value) => {
+                      if (!value) return Promise.resolve();
+                      const v = value.trim();
+
+                      // Quick sanity pattern: <something>@<something>.<tld 2+ chars>
+                      const basic = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+
+                      // Disallow consecutive dots and leading/trailing dots in local part or domain
+                      const badDots =
+                        /\.\./.test(v) || /^\.|\.@$|@\.|\.@|@\.$/.test(v);
+
+                      return Promise.resolve();
+                    },
+                  },
                 ]}
+
                 className=" w-full"
               >
                 <Input

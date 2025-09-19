@@ -124,6 +124,20 @@ const authApi = baseApi.injectEndpoints({
       }),
     }),
 
+    privacySettings: builder.query({
+      query: () => ({
+        url: "/policy-term/policy",
+        method: "GET",
+      }),
+    }),
+
+    trustAndSafety: builder.query({
+      query: () => ({
+        url: "/policy-term/terms",
+        method: "GET",
+      }),
+    }),
+
   }),
 });
 
@@ -143,6 +157,8 @@ export const {
   useGetMeQuery,
   useCheckTraineeAvailabilityQuery,
   useCheckTrainerAvailabilityQuery,
+  usePrivacySettingsQuery,
+  useTrustAndSafetyQuery,
 
 } = authApi;
 

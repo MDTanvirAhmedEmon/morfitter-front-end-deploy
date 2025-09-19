@@ -9,6 +9,7 @@ import { Avatar } from "antd";
 
 const MyEnrolledSession = () => {
   const { data, isLoading } = useMyEnrolledSessionQuery();
+  console.log(data);
   const [alertMessage, setAlertMessage] = useState(null);
 
   const handleLinkClick = (paymentStatus) => {
@@ -87,9 +88,9 @@ const MyEnrolledSession = () => {
                           </div>
                         )}
                         {/* Price */}
-                        {item?.membership_fee > 0 ? (
+                        {item?.sessionDetails?.membership_fee > 0 ? (
                           <div className="font-semibold absolute bottom-4 right-4">
-                            price: £{item?.membership_fee}
+                            price: £{item?.sessionDetails?.membership_fee}
                           </div>
                         ) : (
                           <div className="font-semibold absolute bottom-4 right-4">

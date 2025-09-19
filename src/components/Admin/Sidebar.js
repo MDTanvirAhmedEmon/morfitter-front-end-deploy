@@ -111,16 +111,16 @@ const Sidebar = ({ collapsed }) => {
                   {
                     key: "8-2",
                     label: (
-                      <Link href={`/settings/privacy-policy`}>
-                        Privacy Policy
+                      <Link href={`/settings/privacy-settings`}>
+                        Privacy Settings
                       </Link>
                     ),
                   },
                   {
                     key: "8-3",
                     label: (
-                      <Link href={`/settings/terms-condition`}>
-                        Terms & Condition
+                      <Link href={`/settings/trust-and-safety`}>
+                        Trust And Safety
                       </Link>
                     ),
                   },

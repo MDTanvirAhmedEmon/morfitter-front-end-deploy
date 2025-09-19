@@ -18,6 +18,10 @@ function ChangePass() {
       message.error(`Confirm password did not match!`);
       return;
     }
+    if (oldPassword === confirmNewPassword) {
+      message.error(`Old password and new password can not be same!`);
+      return;
+    }
     const data = {
       oldPassword,
       newPassword,

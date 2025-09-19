@@ -147,7 +147,7 @@ const Footer = () => {
                                 </li>
                                 <li>
                                     <Link
-                                        href="#"
+                                        href="/trust-and-safety"
                                         className="text-white text-[18px] hover:text-primary transition duration-300"
                                     >
                                         Trust and Safety
@@ -155,7 +155,7 @@ const Footer = () => {
                                 </li>
                                 <li>
                                     <Link
-                                        href="#"
+                                        href="/privacy-settings"
                                         className="text-white text-[18px] hover:text-primary transition duration-300"
                                     >
                                         Privacy Settings
