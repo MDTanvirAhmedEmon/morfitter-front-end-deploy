@@ -10,6 +10,7 @@ const adminSessionApi = baseApi.injectEndpoints({
       }),
       providesTags: ['session']
     }),
+
     blockUnblockSession: builder.mutation({
       query: (id) => ({
         url: `/session/block-unblock/${id}`,
@@ -18,9 +19,24 @@ const adminSessionApi = baseApi.injectEndpoints({
       invalidatesTags: ["session"],
     }),
 
+    createUpdateSocial: builder.mutation({
+      query: (data) => ({
+        url: `/policy-term/social`,
+        method: "PATCH",
+        body: data
+      }),
+    }),
+
+    getSocialLinks: builder.query({
+      query: () => ({
+        url: `/policy-term/social`,
+        method: "GET",
+      }),
+    }),
+
   }),
 });
 
-export const { useGetAllSessionForAdminQuery , useBlockUnblockSessionMutation  } = adminSessionApi;
+export const { useGetAllSessionForAdminQuery, useBlockUnblockSessionMutation, useCreateUpdateSocialMutation, useGetSocialLinksQuery } = adminSessionApi;
 
 export default adminSessionApi;

@@ -124,6 +124,14 @@ const Sidebar = ({ collapsed }) => {
                       </Link>
                     ),
                   },
+                  {
+                    key: "8-4",
+                    label: (
+                      <Link href={`/settings/social-links`}>
+                        Social Links
+                      </Link>
+                    ),
+                  },
                 ],
               },
             ]}

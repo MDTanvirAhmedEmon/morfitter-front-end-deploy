@@ -7,6 +7,7 @@ import { FaInstagram } from "react-icons/fa"
 import { FaXTwitter } from "react-icons/fa6"
 import { FaLinkedinIn } from "react-icons/fa6"
 import footerBg from '../../assets/footer-bg.png'
+import { useGetSocialLinksQuery } from "@/redux/features/admin/session/adminSessionApi"
 
 const Footer = () => {
     const pathname = usePathname();
@@ -17,6 +18,8 @@ const Footer = () => {
         backgroundPosition: "center",
 
     };
+    const { data } = useGetSocialLinksQuery();
+    console.log(data?.data?.[0]);
     return (
         <div className=" bg-[#000000da]">
             <footer style={imageStyle} className="footer-section  text-white">
@@ -39,30 +42,38 @@ const Footer = () => {
                                 anytime, anywhere.
                             </p>
                             <div className="flex gap-4 mt-5">
-                                <Link
-                                    href="#"
-                                    className="item h-10 w-10 rounded-full bg-white text-greenColor flex items-center justify-center text-xl hover:bg-greenColor hover:text-white transition duration-300"
-                                >
-                                    <FaFacebookF />
-                                </Link>
-                                <Link
-                                    href="#"
-                                    className="item h-10 w-10 rounded-full bg-white text-greenColor flex items-center justify-center text-xl hover:bg-greenColor hover:text-white transition duration-300"
-                                >
-                                    <FaInstagram />
-                                </Link>
-                                <Link
-                                    href="#"
-                                    className="item h-10 w-10 rounded-full bg-white text-greenColor flex items-center justify-center text-xl hover:bg-greenColor hover:text-white transition duration-300"
-                                >
-                                    <FaXTwitter />
-                                </Link>
-                                <Link
-                                    href="#"
-                                    className="item h-10 w-10 rounded-full bg-white text-greenColor flex items-center justify-center text-xl hover:bg-greenColor hover:text-white transition duration-300"
-                                >
-                                    <FaLinkedinIn />
-                                </Link>
+                                {data?.data?.[0]?.facebook && (
+                                    <Link
+                                        href={data?.data?.[0]?.facebook}
+                                        className="item h-10 w-10 rounded-full bg-white text-greenColor flex items-center justify-center text-xl hover:bg-greenColor hover:text-white transition duration-300"
+                                    >
+                                        <FaFacebookF />
+                                    </Link>
+                                )}
+                                {data?.data?.[0]?.instagram && (
+                                    <Link
+                                        href={data?.data?.[0]?.instagram}
+                                        className="item h-10 w-10 rounded-full bg-white text-greenColor flex items-center justify-center text-xl hover:bg-greenColor hover:text-white transition duration-300"
+                                    >
+                                        <FaInstagram />
+                                    </Link>
+                                )}
+                                {data?.data?.[0]?.x && (
+                                    <Link
+                                        href={data?.data?.[0]?.x}
+                                        className="item h-10 w-10 rounded-full bg-white text-greenColor flex items-center justify-center text-xl hover:bg-greenColor hover:text-white transition duration-300"
+                                    >
+                                        <FaXTwitter />
+                                    </Link>
+                                )}
+                                {data?.data?.[0]?.linkedin && (
+                                    <Link
+                                        href={data?.data?.[0]?.linkedin}
+                                        className="item h-10 w-10 rounded-full bg-white text-greenColor flex items-center justify-center text-xl hover:bg-greenColor hover:text-white transition duration-300"
+                                    >
+                                        <FaLinkedinIn />
+                                    </Link>
+                                )}
                             </div>
                         </div>
 
