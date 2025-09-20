@@ -28,6 +28,13 @@ const profileApi = baseApi.injectEndpoints({
             }),
         }),
 
+        subscribeNow: builder.mutation({
+            query: (data) => ({
+                url: `/policy-term/subscription`,
+                method: "POST",
+                body: data,
+            }),
+        }),
         // getMe: builder.query({
         //   query: () => ({
         //     url: "/users/get-me",
@@ -42,6 +49,7 @@ export const {
     useUpdateTrainerProfileMutation,
     useUpdateTraineeProfileMutation,
     useGetMembershipQuery,
+    useSubscribeNowMutation,
 } = profileApi;
 
 export default profileApi;

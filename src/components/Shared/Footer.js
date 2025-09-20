@@ -8,9 +8,14 @@ import { FaXTwitter } from "react-icons/fa6"
 import { FaLinkedinIn } from "react-icons/fa6"
 import footerBg from '../../assets/footer-bg.png'
 import { useGetSocialLinksQuery } from "@/redux/features/admin/session/adminSessionApi"
+import { useSubscribeNowMutation } from "@/redux/features/profile/profileApi"
+import { message } from "antd"
+import { useState } from "react"
 
 const Footer = () => {
     const pathname = usePathname();
+    const [email, setEmail] = useState("");
+
     const isActive = (path) => pathname === path;
     const imageStyle = {
         backgroundImage: `URL(${footerBg.src})`,
@@ -18,8 +23,39 @@ const Footer = () => {
         backgroundPosition: "center",
 
     };
+    const [subscribeNow] = useSubscribeNowMutation();
+
     const { data } = useGetSocialLinksQuery();
-    console.log(data?.data?.[0]);
+
+    const isValidEmail = (value) => {
+        const trimmed = value.trim();
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed);
+    };
+    const handleSubscription = () => {
+        const value = email.trim();
+        if (!value) {
+            message.error("Please enter your email address.")
+            return;
+        }
+        if (!isValidEmail(value)) {
+            message.error("Please enter a valid email address.")
+            return;
+        }
+        const data = { email: email }
+
+        subscribeNow(data)
+            .unwrap()
+            .then(() => {
+                message.success("Thanks! You’re subscribed");
+                setEmail("")
+            })
+            .catch(() => {
+                message.error("Something went wrong!");
+            });
+    }
+
+
+
     return (
         <div className=" bg-[#000000da]">
             <footer style={imageStyle} className="footer-section  text-white">
@@ -183,11 +219,17 @@ const Footer = () => {
                             </p>
                             <div className="flex items-center bg-white rounded-full h-[50px] overflow-hidden px-3 gap-3">
                                 <input
-                                    type="text"
+                                    type="email"
                                     placeholder="Email Address..."
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     className="flex-1 text-sm text-gray-700 outline-none border-none placeholder:text-gray-500"
                                 />
-                                <button className="px-4 py-2 rounded-full text-white bg-secondary hover:bg-greenColor transition duration-300">
+                                <button
+                                    onClick={handleSubscription}
+                                    // disabled={isSubscribing}
+                                    // aria-busy={isSubscribing}
+                                    className="px-4 py-2 rounded-full text-white bg-secondary hover:bg-greenColor transition duration-300">
                                     Subscribe
                                 </button>
                             </div>
