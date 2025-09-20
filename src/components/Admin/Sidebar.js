@@ -42,9 +42,9 @@ const Sidebar = ({ collapsed }) => {
           collapsible
           collapsed={collapsed}
         >
-          <div className=" w-full flex justify-center items-center py-10">
+          <div className=" w-full flex justify-center items-center pt-4 pb-6">
             <Link
-              className={` ${collapsed ? "text-auto" : "text-[32px]"
+              className={` ${collapsed ? "text-auto" : "text-[28px]"
                 }  font-extrabold text-white hover:text-white `}
               href={`/`}
             >
@@ -134,6 +134,14 @@ const Sidebar = ({ collapsed }) => {
                     label: (
                       <Link href={`/settings/social-links`}>
                         Social Links
+                      </Link>
+                    ),
+                  },
+                  {
+                    key: "8-5",
+                    label: (
+                      <Link href={`/subscription`}>
+                        Subscriptions
                       </Link>
                     ),
                   },

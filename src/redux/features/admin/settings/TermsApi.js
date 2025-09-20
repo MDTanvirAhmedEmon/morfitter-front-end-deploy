@@ -35,10 +35,17 @@ const TermsApi = baseApi.injectEndpoints({
         params
       }),
     }),
+
+    getSubscription: builder.query({
+      query: (params) => ({
+        url: `/policy-term/subscription`,
+        method: "GET",
+        params
+      }),
+    }),
   }),
 });
 
-export const { useGetTermsQuery, useAddTermsMutation, useUpdateTermsMutation, useGetHelpCenterQuery } =
-  TermsApi;
+export const { useGetTermsQuery, useAddTermsMutation, useUpdateTermsMutation, useGetHelpCenterQuery, useGetSubscriptionQuery } = TermsApi;
 
 export default TermsApi;
