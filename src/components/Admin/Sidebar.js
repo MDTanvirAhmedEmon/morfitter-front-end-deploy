@@ -14,6 +14,7 @@ import { logout } from "@/redux/features/auth/authSlice";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { MdPayment } from "react-icons/md";
+import { RiContactsBook2Line } from "react-icons/ri";
 // import { clearRegisterInfo } from "@/redux/features/auth/registerSlice";
 
 const { Sider } = Layout;
@@ -43,9 +44,8 @@ const Sidebar = ({ collapsed }) => {
         >
           <div className=" w-full flex justify-center items-center py-10">
             <Link
-              className={` ${
-                collapsed ? "text-auto" : "text-[32px]"
-              }  font-extrabold text-white hover:text-white `}
+              className={` ${collapsed ? "text-auto" : "text-[32px]"
+                }  font-extrabold text-white hover:text-white `}
               href={`/`}
             >
               Morfitter
@@ -97,9 +97,14 @@ const Sidebar = ({ collapsed }) => {
                 icon: <MdPayment className=" w-5 h-5" />,
                 label: <Link href={`/payment`}>Payment Management</Link>,
               },
-
               {
                 key: "7",
+                icon: <RiContactsBook2Line className=" w-5 h-5" />,
+                label: <Link href={`/help-center`}>Help Center</Link>,
+              },
+
+              {
+                key: "8",
                 icon: <SettingOutlined className="w-5 h-5 ml-0.5" />,
 
                 label: <p>Settings</p>,

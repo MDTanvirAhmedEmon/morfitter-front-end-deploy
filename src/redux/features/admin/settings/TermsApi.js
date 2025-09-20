@@ -9,6 +9,7 @@ const TermsApi = baseApi.injectEndpoints({
       }),
       providesTags: ["terms"],
     }),
+
     addTerms: builder.mutation({
       query: (data) => ({
         url: `/policy-term/create-terms`,
@@ -17,6 +18,7 @@ const TermsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["terms"],
     }),
+
     updateTerms: builder.mutation({
       query: ({ id, data }) => ({
         url: `/policy-term/terms/${id}`,
@@ -25,10 +27,18 @@ const TermsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["terms"],
     }),
+
+    getHelpCenter: builder.query({
+      query: (params) => ({
+        url: `/policy-term/help-center`,
+        method: "GET",
+        params
+      }),
+    }),
   }),
 });
 
-export const { useGetTermsQuery, useAddTermsMutation, useUpdateTermsMutation } =
+export const { useGetTermsQuery, useAddTermsMutation, useUpdateTermsMutation, useGetHelpCenterQuery } =
   TermsApi;
 
 export default TermsApi;
