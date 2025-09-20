@@ -2,4 +2,4 @@
 
 import { io } from "socket.io-client";
 
-export const socket = io('http://localhost:5000/live-chats');
+export const socket = io('https://api.morfitter.com/live-chats');
