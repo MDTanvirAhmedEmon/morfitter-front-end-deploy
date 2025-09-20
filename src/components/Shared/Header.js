@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "@/redux/features/auth/authSlice";
 import Cookies from "js-cookie";
 import { Avatar } from "antd";
-import profileImage from '../../assets/profile/profile_image.webp'
+// import profileImage from '../../assets/profile/profile_image.webp'
 
 const Header = () => {
   const { user, role } = useSelector((state) => state.auth);

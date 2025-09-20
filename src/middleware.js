@@ -58,6 +58,7 @@ export const config = {
         '/sessions',
         '/all-personal-trainer',
         '/user-management',
+        '/view-trainer-profile',
         '/settings/:path*', 
         '/find-trainers/:path*', 
         '/morfitter-pts/:path*',

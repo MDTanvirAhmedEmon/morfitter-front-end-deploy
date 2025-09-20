@@ -11,10 +11,13 @@ import { useGetSocialLinksQuery } from "@/redux/features/admin/session/adminSess
 import { useSubscribeNowMutation } from "@/redux/features/profile/profileApi"
 import { message } from "antd"
 import { useState } from "react"
+import { useSelector } from "react-redux"
 
 const Footer = () => {
     const pathname = usePathname();
     const [email, setEmail] = useState("");
+    const { user, role } = useSelector((state) => state.auth);
+    console.log('role', role);
 
     const isActive = (path) => pathname === path;
     const imageStyle = {
@@ -54,7 +57,7 @@ const Footer = () => {
             });
     }
 
-
+    const forTrainerLinks = role?.role === "super_admin" || role?.role === "admin" ? "/auth/login" : role?.role === "trainee" ? "/auth/login" : "/trainer-profile"
 
     return (
         <div className=" bg-[#000000da]">
@@ -147,7 +150,7 @@ const Footer = () => {
                                         About Us
                                     </span>
                                 </Link> */}
-                                <Link href="/personal-trainers">
+                                <Link href={forTrainerLinks}>
                                     <span
                                         className={`${isActive("/personal-trainers")
                                             ? " rounded-full  text-primary "
@@ -157,9 +160,9 @@ const Footer = () => {
                                         For Personal Trainers
                                     </span>
                                 </Link>
-                                <Link href="/fitness-enthusiasts">
+                                <Link href="/morfitter-sessions">
                                     <span
-                                        className={`${isActive("/fitness-enthusiasts")
+                                        className={`${isActive("/morfitter-sessions")
                                             ? " rounded-full  text-primary "
                                             : ""
                                             }  text-lg rounded-full py-2 hover:text-primary   text-white `}
@@ -239,7 +242,7 @@ const Footer = () => {
 
                 <div className="xxl:w-[1340px] mx-auto mt-8 border-t border-gray-700 py-3 md:py-6">
                     <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-                        <p className="text-sm md:text-lg">© 2024 All rights reserved!</p>
+                        <p className="text-sm md:text-lg">© {new Date().getFullYear()} All rights reserved!</p>
                         <div className="space-x-6 mt-2 md:mt-0">
                             <Link href="#" className="text-white hover:text-gray-300  text-sm md:text-lg">
                                 Privacy Policy
