@@ -8,11 +8,12 @@ import linkd from '../../../assets/ln.svg'
 import hero from '../../../assets/hero.png'
 import Image from "next/image";
 import { useSelector } from "react-redux";
+import { useGetSocialLinksQuery } from "@/redux/features/admin/session/adminSessionApi";
 
 const HeroSection = () => {
 
     const { role } = useSelector((state) => state.auth)
-
+    const { data } = useGetSocialLinksQuery();
     const imageStyle = {
         backgroundImage: `URL(${bgHero.src})`,
         backgroundSize: "cover",
@@ -58,20 +59,39 @@ const HeroSection = () => {
                             </div>
                         }
 
-
                         <div className="icon flex gap-4 mt-8">
-                            <Link href="#" className="item w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-md">
-                                <Image src={fb} alt="Facebook" width={0} height={0} className="w-5 h-5" />
-                            </Link>
-                            <Link href="#" className="item w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-md">
-                                <Image src={insta} alt="Facebook" width={0} height={0} className="w-5 h-5" />
-                            </Link>
-                            <Link href="#" className="item w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-md">
-                                <Image src={twt} alt="Facebook" width={0} height={0} className="w-5 h-5" />
-                            </Link>
-                            <Link href="#" className="item w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-md">
-                                <Image src={linkd} alt="Facebook" width={0} height={0} className="w-5 h-5" />
-                            </Link>
+                            {data?.data?.[0]?.facebook && (
+                                <Link
+                                    href={data?.data?.[0]?.facebook}
+                                    className="item w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-md"
+                                >
+                                    <Image src={fb} alt="Facebook" width={0} height={0} className="w-5 h-5" />
+                                </Link>
+                            )}
+                            {data?.data?.[0]?.instagram && (
+                                <Link
+                                    href={data?.data?.[0]?.instagram}
+                                    className="item w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-md"
+                                >
+                                   <Image src={insta} alt="Facebook" width={0} height={0} className="w-5 h-5" />
+                                </Link>
+                            )}
+                            {data?.data?.[0]?.x && (
+                                <Link
+                                    href={data?.data?.[0]?.x}
+                                    className="item w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-md"
+                                >
+                                    <Image src={twt} alt="Facebook" width={0} height={0} className="w-5 h-5" />
+                                </Link>
+                            )}
+                            {data?.data?.[0]?.linkedin && (
+                                <Link
+                                    href={data?.data?.[0]?.linkedin}
+                                    className="item w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-md"
+                                >
+                                   <Image src={linkd} alt="Facebook" width={0} height={0} className="w-5 h-5" />
+                                </Link>
+                            )}
                         </div>
                     </div>
                 </div>
