@@ -35,6 +35,16 @@ const profileApi = baseApi.injectEndpoints({
                 body: data,
             }),
         }),
+
+
+        userHelpCenter: builder.mutation({
+            query: (data) => ({
+                url: `/policy-term/help-center`,
+                method: "POST",
+                body: data,
+            }),
+        }),
+
         // getMe: builder.query({
         //   query: () => ({
         //     url: "/users/get-me",
@@ -50,6 +60,7 @@ export const {
     useUpdateTraineeProfileMutation,
     useGetMembershipQuery,
     useSubscribeNowMutation,
+    useUserHelpCenterMutation,
 } = profileApi;
 
 export default profileApi;

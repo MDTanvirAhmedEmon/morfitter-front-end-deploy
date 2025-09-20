@@ -186,7 +186,7 @@ const Footer = () => {
                             <ul className="space-y-4">
                                 <li>
                                     <Link
-                                        href="#"
+                                        href="/user-help-center"
                                         className="text-white text-[18px] hover:text-primary transition duration-300"
                                     >
                                         Help Center
