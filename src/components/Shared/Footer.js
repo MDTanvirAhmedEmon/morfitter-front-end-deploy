@@ -16,8 +16,8 @@ import { useSelector } from "react-redux"
 const Footer = () => {
     const pathname = usePathname();
     const [email, setEmail] = useState("");
-    const { user, role } = useSelector((state) => state.auth);
-    console.log('role', role);
+    const { role } = useSelector((state) => state.auth);
+
 
     const isActive = (path) => pathname === path;
     const imageStyle = {
